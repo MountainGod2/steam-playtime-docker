@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.2 (2026-01-17)
+
+### Bug Fixes
+
+- Update push tags to match semantic versioning format
+  ([`485e4a6`](https://github.com/MountainGod2/steam-playtime-docker/commit/485e4a684468d0c21e80fd555f1f9a61adc3089b))
+
+
 ## v1.0.1 (2026-01-17)
 
 ### Bug Fixes
