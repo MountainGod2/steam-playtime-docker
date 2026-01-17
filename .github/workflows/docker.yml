@@ -23,19 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  cleanup:
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Cleanup Packages
-        uses: actions/delete-package-versions@e5bc658cc4c965c472efe991f8beea3981499c55 # v5
-        with:
-          package-name: steam-playtime-docker
-          package-type: container
-          min-versions-to-keep: 0
-          delete-only-untagged-versions: true
-
   build:
-    needs: cleanup
     runs-on: ubuntu-24.04
     outputs:
       digest: ${{ steps.build.outputs.digest }}
