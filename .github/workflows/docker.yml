@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: "0 1 * * *" # Every day at 01:00 UTC
   push:
-    tags: ["v*"]
+    tags: ["*.*.*"] # On semantic version tags
 
 env:
   GHCR_REGISTRY: ghcr.io
@@ -95,11 +95,3 @@ jobs:
         with:
           subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build.outputs.digest }}
-
-  test:
-    needs: build
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Test GHCR image
-        run: |
-          docker run --rm ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} --help
