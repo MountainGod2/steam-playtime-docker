@@ -1,0 +1,88 @@
+[project]
+name = "steam-playtime-docker"
+version = "0.1.0"
+description = "Display playtime for Steam library."
+readme = "README.md"
+authors = [
+    { name = "MountainGod2", email = "admin@reid.ca" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.128.0",
+    "httpx>=0.28.1",
+    "uvicorn>=0.40.0",
+]
+
+[project.scripts]
+steam-playtime-docker = "steam_playtime_docker.main:main"
+
+[build-system]
+requires = ["hatchling==1.28.0", "hatch-fancy-pypi-readme==25.1.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pyrefly==0.48.1",
+    "ruff==0.14.13",
+    "pre-commit==4.5.1",
+    "python-semantic-release==10.5.3",
+]
+
+[tool.hatch]
+build.targets.wheel.packages = ["src/steam_playtime_docker"]
+metadata.hooks.fancy-pypi-readme.content-type = "text/markdown"
+metadata.hooks.fancy-pypi-readme.fragments = [{ path = "README.md" }]
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+# Replace relative links in the README with absolute links to the GitHub repository
+pattern = '\[(.+?)\]\(((?!https?://)\.?/?(\S+?))\)'
+replacement = '[\1](https://github.com/MountainGod2/steam-playtime-docker/tree/main/\g<3>)'
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+build_command = """
+  uv lock --upgrade-package "steam-playtime-docker"
+  uv build
+"""
+commit_parser = "conventional"
+changelog_file = "CHANGELOG.md"
+output_format = "md"
+
+[tool.semantic_release.commit_parser_options]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+parse_squash_commits = true
+ignore_merge_commits = true
+
+[tool.semantic_release.exclude_commit_patterns]
+patterns = [
+    '''chore(?:\([^)]*?\))?: .+''',
+    '''ci(?:\([^)]*?\))?: .+''',
+    '''docs(?:\([^)]*?\))?: .+''',
+    '''refactor(?:\([^)]*?\))?: .+''',
+    '''style(?:\([^)]*?\))?: .+''',
+    '''test(?:\([^)]*?\))?: .+''',
+    '''build\((?!deps\): .+)''',
+    '''Initial [Cc]ommit.*''',
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 80
+indent-width = 4
+
+[tool.ruff.lint]
+preview = true
+select = ["ALL"]
+ignore = ["COM812", "CPY001", "ISC001"]
+unfixable = []
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+preview = true
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
