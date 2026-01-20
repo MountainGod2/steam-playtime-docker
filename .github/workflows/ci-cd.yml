@@ -3,34 +3,30 @@ name: CI/CD
 on:
   push:
     branches: [main, "renovate/**"]
+    tags: ["*.*.*"]
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *" # Every day at 01:00 UTC
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  GHCR_REGISTRY: ghcr.io
+  IMAGE_NAME: mountaingod2/steam-playtime-docker
+
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+  attestations: write
+  id-token: write
+
 jobs:
-  dependency-sync:
-    runs-on: ubuntu-24.04
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-
-      - uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7
-        with:
-          python-version: "3.13"
-          enable-cache: true
-          cache-suffix: ${{ hashFiles('uv.lock') }}
-
-      - run: uv sync --all-groups --frozen
-
-      - run: uv cache prune --ci
-
   test:
-    needs: dependency-sync
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -66,10 +62,7 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
-          ref: ${{ github.sha }}
           fetch-depth: 0
-
-      - run: git checkout -B ${{ github.ref_name }}
 
       - uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7
         with:
@@ -99,8 +92,6 @@ jobs:
           path: uv.lock
           if-no-files-found: error
           retention-days: 2
-
-      - run: uv cache prune --ci
 
   release:
     needs: build
@@ -150,10 +141,84 @@ jobs:
           uv run semantic-release -v --strict version --skip-build
           uv run semantic-release publish
 
-      - run: uv cache prune --ci
+  build-container:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@e468171a9de216ec08956ac3ada2f0791b6bd435 # v3
+        id: setup-buildx
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+        with:
+          registry: ${{ env.GHCR_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f # v5
+        with:
+          images: |
+            ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
+          tags: |
+            type=schedule,priority=50,pattern=nightly
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
+            type=sha,format=long,prefix=
+
+      - name: Cache UV dependencies
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        id: cache
+        with:
+          path: uv-cache
+          key: ${{ runner.os }}-uv-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - name: Restore Docker cache mounts
+        uses: reproducible-containers/buildkit-cache-dance@5b81f4d29dc8397a7d341dba3aeecc7ec54d6361 # v3
+        with:
+          builder: ${{ steps.setup-buildx.outputs.name }}
+          cache-map: |
+            {
+              "uv-cache": "/root/.cache/uv"
+            }
+          skip-extraction: ${{ steps.cache.outputs.cache-hit }}
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          sbom: true
+          provenance: true
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+          outputs: type=image,oci-mediatypes=true,compression=gzip,compression-level=6
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        with:
+          subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-digest: ${{ steps.build.outputs.digest }}
 
   deploy:
-    needs: [build, release]
+    needs: release
     if: github.ref == 'refs/heads/main' && needs.release.outputs.released == 'true' && github.repository == 'MountainGod2/steam-playtime-docker'
     runs-on: ubuntu-24.04
     environment:
