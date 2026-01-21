@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.0 (2026-01-21)
+
+### Features
+
+- **ci-cd**: Remove build-container job and add release-container workflow
+  ([`9b5b693`](https://github.com/MountainGod2/steam-playtime-docker/commit/9b5b6937d230124984c5e1f527c333ca27ade8d5))
+
+
 ## v1.0.3 (2026-01-21)
 
 ### Bug Fixes
