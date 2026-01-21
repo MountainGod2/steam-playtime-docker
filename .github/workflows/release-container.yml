@@ -82,6 +82,7 @@ jobs:
             type=raw,value=${{ env.RELEASE_VERSION }}
             type=raw,value=${{ env.RELEASE_MAJOR }}.${{ env.RELEASE_MINOR }}
             type=raw,value=${{ env.RELEASE_MAJOR }},enable=${{ env.IS_MAJOR_ZERO != 'true' }}
+            type=raw,value=latest
 
       - name: Cache UV dependencies
         uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
