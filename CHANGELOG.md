@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.1 (2026-01-21)
+
+### Bug Fixes
+
+- **release**: Add 'latest' tag to container image metadata
+  ([`377e110`](https://github.com/MountainGod2/steam-playtime-docker/commit/377e110870066376fcf52ffbef3b744d82cee583))
+
+
 ## v1.1.0 (2026-01-21)
 
 ### Features
