@@ -2,6 +2,43 @@
 
 <!-- version list -->
 
+## v1.0.3 (2026-01-21)
+
+### Bug Fixes
+
+- **ci-cd**: Refine build-container job conditions and remove unused deploy job
+  ([`ab4ec47`](https://github.com/MountainGod2/steam-playtime-docker/commit/ab4ec475472a05175631a4bca67411f248aefdf9))
+
+### Chores
+
+- **deps**: Pin dependencies
+  ([`3c7e276`](https://github.com/MountainGod2/steam-playtime-docker/commit/3c7e276d5cc4c2193a387985a83c786b5c30c60f))
+
+- **deps**: Update actions/cache action to v5
+  ([#7](https://github.com/MountainGod2/steam-playtime-docker/pull/7),
+  [`dd63bf6`](https://github.com/MountainGod2/steam-playtime-docker/commit/dd63bf648b3fe4d9c78417c97dd3eec6f074109d))
+
+- **deps**: Update dependency pyrefly to v0.48.2
+  ([#6](https://github.com/MountainGod2/steam-playtime-docker/pull/6),
+  [`dd42bda`](https://github.com/MountainGod2/steam-playtime-docker/commit/dd42bdad2173a6b4927610a89234c6455fb3636d))
+
+- **deps**: Update docker/metadata-action digest to c299e40
+  ([#8](https://github.com/MountainGod2/steam-playtime-docker/pull/8),
+  [`c3a3e53`](https://github.com/MountainGod2/steam-playtime-docker/commit/c3a3e53163726363057600958437e862ca8313a1))
+
+- **deps**: Update docker/metadata-action digest to c299e40
+  ([`60a4414`](https://github.com/MountainGod2/steam-playtime-docker/commit/60a44143b1e748700ce6842f63fffd4d146ef966))
+
+- **deps**: Update docker/setup-buildx-action digest to 8d2750c
+  ([#5](https://github.com/MountainGod2/steam-playtime-docker/pull/5),
+  [`c03a00f`](https://github.com/MountainGod2/steam-playtime-docker/commit/c03a00ff808c25fb9a0d66da3cf55857bdb9afc7))
+
+### Refactoring
+
+- Consolidate CI/CD workflows by removing redundant docker.yml
+  ([`7441ff9`](https://github.com/MountainGod2/steam-playtime-docker/commit/7441ff9693806b0fc60cb93fb5fa135757e4dc76))
+
+
 ## v1.0.2 (2026-01-17)
 
 ### Bug Fixes
