@@ -40,6 +40,7 @@ jobs:
           set -euo pipefail
           if [[ ! -f release-info/release-info.txt ]]; then
             echo "No release info found; skipping container build."
+            echo "should_build=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           source release-info/release-info.txt
@@ -54,18 +55,22 @@ jobs:
           else
             echo "IS_MAJOR_ZERO=false" >> "$GITHUB_ENV"
           fi
+          echo "should_build=true" >> "$GITHUB_OUTPUT"
 
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+        if: steps.load.outputs.should_build == 'true'
         with:
           ref: ${{ env.RELEASE_TAG }}
           fetch-depth: 0
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+        if: steps.load.outputs.should_build == 'true'
         id: setup-buildx
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3
+        if: steps.load.outputs.should_build == 'true'
         with:
           registry: ${{ env.GHCR_REGISTRY }}
           username: ${{ github.actor }}
@@ -74,6 +79,7 @@ jobs:
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        if: steps.load.outputs.should_build == 'true'
         with:
           images: |
             ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -87,6 +93,7 @@ jobs:
 
       - name: Cache UV dependencies
         uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 # v5
+        if: steps.load.outputs.should_build == 'true'
         id: cache
         with:
           path: uv-cache
@@ -96,6 +103,7 @@ jobs:
 
       - name: Restore Docker cache mounts
         uses: reproducible-containers/buildkit-cache-dance@5b81f4d29dc8397a7d341dba3aeecc7ec54d6361 # v3
+        if: steps.load.outputs.should_build == 'true'
         with:
           builder: ${{ steps.setup-buildx.outputs.name }}
           cache-map: |
@@ -107,6 +115,7 @@ jobs:
       - name: Build and push
         id: build
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6
+        if: steps.load.outputs.should_build == 'true'
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -123,6 +132,7 @@ jobs:
 
       - name: Attest build provenance
         uses: actions/attest-build-provenance@977bb373ede98d70efdf65b84cb5f73e068dcc2a # v3
+        if: steps.load.outputs.should_build == 'true'
         with:
           subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.build.outputs.digest }}
