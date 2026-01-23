@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v1.1.2 (2026-01-23)
+
+### Bug Fixes
+
+- **release**: Allow continuation on error when downloading release info
+  ([`21e2557`](https://github.com/MountainGod2/steam-playtime-docker/commit/21e25574100edb764a936b9000b864cc400f0c03))
+
+### Chores
+
+- **deps**: Update dependency pyrefly to v0.49.0
+  ([#9](https://github.com/MountainGod2/steam-playtime-docker/pull/9),
+  [`4b81dc8`](https://github.com/MountainGod2/steam-playtime-docker/commit/4b81dc80062b1dbe5ef9bbad51c23eec3a8938d8))
+
+
 ## v1.1.1 (2026-01-21)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 [project]
 name = "steam-playtime-docker"
-version = "1.1.1"
+version = "1.1.2"
 description = "Display playtime for Steam library."
 readme = "README.md"
 authors = [
