@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.1.3 (2026-01-23)
+
+### Bug Fixes
+
+- **release**: Add conditional checks for container build steps based on release info
+  ([`6f3c1bb`](https://github.com/MountainGod2/steam-playtime-docker/commit/6f3c1bb1b643a79c79ab1ee9ddda2d6b231e304a))
+
+### Chores
+
+- **pre-commit**: Remove pyupgrade hook from configuration
+  ([`8999e2d`](https://github.com/MountainGod2/steam-playtime-docker/commit/8999e2d3970f1aaf7fd15f5ab56974e7bd8d0c36))
+
+
 ## v1.1.2 (2026-01-23)
 
 ### Bug Fixes
