@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:bookworm-slim@sha256:85c530098e4db6143cf1b63d1634a9150210a3f98690b3eb6e9fa6515bc60954 AS builder
+FROM ghcr.io/astral-sh/uv:bookworm-slim@sha256:7c5ee6dd2e96fc86b91fe4583428f345d63eb9092c09ae6de4e6d4eb0f2bf30c AS builder
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy
 
 ENV UV_NO_DEV=1
