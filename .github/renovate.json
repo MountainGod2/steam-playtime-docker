@@ -1,3 +1,5 @@
 {
-  "extends": ["config:best-practices"]
+  "extends": ["config:best-practices"],
+  "automerge": true,
+  "minimumReleaseType": "fix"
 }
