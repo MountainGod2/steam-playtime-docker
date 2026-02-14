@@ -1,5 +1,11 @@
 {
   "extends": ["config:best-practices"],
   "automerge": true,
-  "minimumReleaseType": "fix"
+  "automergeType": "pr",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    }
+  ]
 }
