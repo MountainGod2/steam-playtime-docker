@@ -4,7 +4,7 @@
   "automergeType": "pr",
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "minor"],
+      "matchUpdateTypes": ["patch", "minor", "digest"],
       "automerge": true
     }
   ]
