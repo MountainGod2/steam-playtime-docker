@@ -22,6 +22,13 @@ jobs:
       github.event.workflow_run.head_branch == 'main' &&
       github.repository == 'MountainGod2/steam-playtime-docker'
     runs-on: ubuntu-24.04
+    env:
+      NIGHTLY_BUILD: "false"
+      RELEASE_VERSION: ""
+      RELEASE_TAG: ""
+      RELEASE_MAJOR: ""
+      RELEASE_MINOR: ""
+      IS_MAJOR_ZERO: "false"
     outputs:
       digest: ${{ steps.build.outputs.digest }}
     steps:
@@ -39,10 +46,20 @@ jobs:
         run: |
           set -euo pipefail
           if [[ ! -f release-info/release-info.txt ]]; then
+            if [[ "${{ github.event.workflow_run.event }}" == "schedule" ]]; then
+              echo "No release info found for scheduled run; building nightly image from main."
+              echo "NIGHTLY_BUILD=true" >> "$GITHUB_ENV"
+              echo "should_build=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
             echo "No release info found; skipping container build."
+            echo "NIGHTLY_BUILD=false" >> "$GITHUB_ENV"
             echo "should_build=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
+          echo "NIGHTLY_BUILD=false" >> "$GITHUB_ENV"
           source release-info/release-info.txt
           echo "RELEASE_VERSION=${version}" >> "$GITHUB_ENV"
           echo "RELEASE_TAG=${tag}" >> "$GITHUB_ENV"
@@ -60,7 +77,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         if: steps.load.outputs.should_build == 'true'
         with:
-          ref: ${{ env.RELEASE_TAG }}
+          ref: ${{ env.NIGHTLY_BUILD == 'true' && github.event.workflow_run.head_sha || env.RELEASE_TAG }}
           fetch-depth: 0
 
       - name: Setup Docker Buildx
@@ -86,10 +103,11 @@ jobs:
           flavor: |
             latest=auto
           tags: |
-            type=raw,value=${{ env.RELEASE_VERSION }}
-            type=raw,value=${{ env.RELEASE_MAJOR }}.${{ env.RELEASE_MINOR }}
-            type=raw,value=${{ env.RELEASE_MAJOR }},enable=${{ env.IS_MAJOR_ZERO != 'true' }}
-            type=raw,value=latest
+            type=raw,value=nightly,enable=${{ env.NIGHTLY_BUILD == 'true' }}
+            type=raw,value=${{ env.RELEASE_VERSION }},enable=${{ env.NIGHTLY_BUILD != 'true' }}
+            type=raw,value=${{ env.RELEASE_MAJOR }}.${{ env.RELEASE_MINOR }},enable=${{ env.NIGHTLY_BUILD != 'true' }}
+            type=raw,value=${{ env.RELEASE_MAJOR }},enable=${{ env.NIGHTLY_BUILD != 'true' && env.IS_MAJOR_ZERO != 'true' }}
+            type=raw,value=latest,enable=${{ env.NIGHTLY_BUILD != 'true' }}
 
       - name: Cache UV dependencies
         uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
