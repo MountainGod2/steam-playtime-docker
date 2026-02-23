@@ -17,7 +17,7 @@ dependencies = [
 steam-playtime-docker = "steam_playtime_docker.main:main"
 
 [build-system]
-requires = ["hatchling==1.28.0", "hatch-fancy-pypi-readme==25.1.0"]
+requires = ["hatchling==1.29.0", "hatch-fancy-pypi-readme==25.1.0"]
 build-backend = "hatchling.build"
 
 [dependency-groups]
