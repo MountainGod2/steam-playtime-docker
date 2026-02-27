@@ -149,7 +149,7 @@ jobs:
           outputs: type=image,oci-mediatypes=true,compression=gzip,compression-level=6
 
       - name: Attest build provenance
-        uses: actions/attest-build-provenance@e4d4f7c39adfa4c260fb5c147f0622000aa14b99 # v4
+        uses: actions/attest-build-provenance@a2bbfa25375fe432b6a289bc6b6cd05ecd0c4c32 # v4
         if: steps.load.outputs.should_build == 'true'
         with:
           subject-name: ${{ env.GHCR_REGISTRY }}/${{ env.IMAGE_NAME }}
