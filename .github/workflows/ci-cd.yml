@@ -45,8 +45,9 @@ jobs:
       - run: uv sync --all-groups --frozen
 
       - run: |
-          uv run ruff format --check
-          uv run ruff check src
+          uv run ruff format --check app
+          uv run ruff check app
+          uv run pyrefly check app
 
   build:
     needs: test
