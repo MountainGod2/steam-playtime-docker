@@ -261,7 +261,7 @@ wheels = [
 
 [[package]]
 name = "fastapi"
-version = "0.134.0"
+version = "0.135.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
@@ -270,9 +270,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/96/15/647ea81cb73b55b48fb095158a9cd64e42e9e4f1d34dbb5cc4a4939779d6/fastapi-0.134.0.tar.gz", hash = "sha256:3122b1ea0dbeaab48b5976e80b99ca7eda02be154bf03e126a33220e73255a9a", size = 385667, upload-time = "2026-02-27T21:18:12.931Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a2/b5/386a9579a299a32365b34097e4eac6a0544ce0d7aa4bb95ce0d71607a999/fastapi-0.135.0.tar.gz", hash = "sha256:bd37903acf014d1284bda027096e460814dca9699f9dacfe11c275749d949f4d", size = 393855, upload-time = "2026-03-01T09:28:46.714Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e3/e6/fd49c28a54b7d6f5c64045155e40f6cff9ed4920055043fb5ac7969f7f2f/fastapi-0.134.0-py3-none-any.whl", hash = "sha256:f4e7214f24b2262258492e05c48cf21125e4ffc427e30dd32fb4f74049a3d56a", size = 110404, upload-time = "2026-02-27T21:18:10.809Z" },
+    { url = "https://files.pythonhosted.org/packages/56/38/fa5dd0e677e1e2e38f858933c4a125e80103e551151f1f661dd4f227210d/fastapi-0.135.0-py3-none-any.whl", hash = "sha256:31e2ddc78d6406c6f7d5d7b9996a057985e2600fbe7e9ba6ace8205d48dff688", size = 114496, upload-time = "2026-03-01T09:28:48.162Z" },
 ]
 
 [package.optional-dependencies]
@@ -1207,14 +1207,14 @@ wheels = [
 
 [[package]]
 name = "sphinx-autodoc-typehints"
-version = "3.8.0"
+version = "3.9.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "sphinx" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ba/89/72f96fe27aa1cfdc882aa6e1309a86b94e4653c1e8acf9b143d34e89c619/sphinx_autodoc_typehints-3.8.0.tar.gz", hash = "sha256:155a30407e88ed3287eeeb1e9156b0ed0ad08c998b0391c652b540563132fd70", size = 59672, upload-time = "2026-02-25T15:00:35.909Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d1/54/bf48480f2db2d6e5afc43b0986baf76247a4a98892b59e2b7bb35dc991dd/sphinx_autodoc_typehints-3.9.2.tar.gz", hash = "sha256:c7d2fd31fc59fee1b7ea0ca67c36ad6ae9211516e720e04ec76660570d5d2ff9", size = 62101, upload-time = "2026-03-01T16:30:46.176Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8c/0e/36820830c766647d688dfc2b3fda76d76c1cf007eea58fffc1990195aca4/sphinx_autodoc_typehints-3.8.0-py3-none-any.whl", hash = "sha256:f348971f3d88eaee053668b61512e921086b8f0600f1e0887a39bc9476aca51c", size = 32616, upload-time = "2026-02-25T15:00:34.749Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/78/46ebaf094a704d73c97917aad7ce11a0a34746bfabb163932957b4ca038b/sphinx_autodoc_typehints-3.9.2-py3-none-any.whl", hash = "sha256:71770af4858d5ba3284435a8995b5ab6792b6dbee02c08721ebd17cfd056e726", size = 34443, upload-time = "2026-03-01T16:30:44.402Z" },
 ]
 
 [[package]]
@@ -1336,7 +1336,7 @@ docs = [
 
 [package.metadata]
 requires-dist = [
-    { name = "fastapi", extras = ["standard"], specifier = "==0.134.0" },
+    { name = "fastapi", extras = ["standard"], specifier = "==0.135.0" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "uvicorn", specifier = "==0.41.0" },
 ]
@@ -1350,10 +1350,10 @@ dev = [
 ]
 docs = [
     { name = "furo", specifier = "==2025.12.19" },
-    { name = "myst-parser", specifier = ">=5.0.0" },
+    { name = "myst-parser", specifier = "==5.0.0" },
     { name = "sphinx", specifier = "==9.1.0" },
     { name = "sphinx-autoapi", specifier = "==3.7.0" },
-    { name = "sphinx-autodoc-typehints", specifier = "==3.8.0" },
+    { name = "sphinx-autodoc-typehints", specifier = "==3.9.2" },
     { name = "sphinx-copybutton", specifier = "==0.5.2" },
 ]
 
