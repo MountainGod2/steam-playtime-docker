@@ -20,10 +20,6 @@ build:
     - mkdir -p $READTHEDOCS_OUTPUT/html/
     - uv run --group docs sphinx-build -E -b html docs $READTHEDOCS_OUTPUT/html
 
-formats:
-  - pdf
-  - epub
-
 search:
   ranking:
     api/*: -1
