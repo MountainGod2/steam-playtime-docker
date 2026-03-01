@@ -24,6 +24,11 @@ ENV/
 build/
 dist/
 
+# Documentation
+docs/_build/
+docs/api/
+html/
+
 # Coverage
 .coverage
 coverage.xml

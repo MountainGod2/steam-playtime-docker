@@ -1,15 +1,15 @@
-## Steam Playtime API
+# Steam Playtime API
 
 FastAPI service that aggregates total playtime from the Steam Web API.
 
-### Configuration
+## Configuration
 
 Set the following environment variables:
 
 - `STEAM_API_KEY`
 - `STEAM_ID_64`
 
-### Run
+## Run
 
 ```bash
 docker run \
@@ -21,7 +21,7 @@ docker run \
   mountaingod2/steam_playtime_docker:dev
 ```
 
-### Endpoint
+## Endpoint
 
 - `GET /steam-stats`
 

@@ -6,7 +6,6 @@ readme = "README.md"
 authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
 requires-python = ">=3.12"
 dependencies = ["fastapi[standard]==0.134.0", "httpx==0.28.1", "uvicorn==0.41.0"]
-# scripts = { steam-playtime-docker = "steam_playtime_docker.main:app" }
 
 [build-system]
 requires = ["hatchling==1.29.0", "hatch-fancy-pypi-readme==25.1.0"]
@@ -14,6 +13,14 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = ["pyrefly==0.54.0", "ruff==0.15.4", "pre-commit==4.5.1", "python-semantic-release==10.5.3"]
+docs = [
+    "sphinx==9.1.0",
+    "sphinx-autoapi==3.7.0",
+    "sphinx-autodoc-typehints==3.8.0",
+    "furo==2025.12.19",
+    "sphinx-copybutton==0.5.2",
+    "myst-parser>=5.0.0",
+]
 
 [tool.hatch]
 build.targets.wheel.packages = ["app"]

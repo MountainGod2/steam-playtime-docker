@@ -45,6 +45,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         await app.state.client.aclose()
 
 
-app = FastAPI(title="Steam Playtime API", lifespan=lifespan)
+root_path = os.getenv("ROOT_PATH", "")
+app = FastAPI(
+    title="Steam Playtime API",
+    lifespan=lifespan,
+    root_path=root_path,
+)
 
 app.include_router(steam.router)
