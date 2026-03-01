@@ -4,7 +4,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import importlib.metadata
+from importlib.metadata import PackageNotFoundError, version
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -12,12 +12,13 @@ import importlib.metadata
 project = "steam-playtime-docker"
 copyright = "2026, MountainGod2"  # noqa: A001
 author = "MountainGod2"
-try:
-    version: str = importlib.metadata.version("steam-playtime-docker")
-except importlib.metadata.PackageNotFoundError:
-    from cb_events import __version__
 
+try:
+    version: str = version("steam-playtime-docker")
+except PackageNotFoundError:
+    from app import __version__
     version = __version__
+
 release: str = version
 
 # -- General configuration ---------------------------------------------------
