@@ -15,10 +15,10 @@ Set the following environment variables:
 docker run \
   --rm \
   -it \
-  -p 8000:3000 \ # HOST:CONTAINER (only adjust host)
+  -p 8000:3000 \
   -e STEAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
   -e STEAM_ID_64="XXXXXXXXXXXXXXXXX" \
-  mountaingod2/steam_playtime_docker:dev
+  mountaingod2/steam-playtime-docker:latest
 ```
 
 ## Endpoint
