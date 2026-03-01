@@ -1,10 +1,9 @@
 """Steam specific endpoints."""
 
-from typing import Any
-
 import httpx
 from fastapi import APIRouter, HTTPException
 from httpx import HTTPStatusError, RequestError, TimeoutException
+from pydantic import BaseModel
 
 from app.dependencies import ClientDependency, SettingsDependency, SteamSettings
 
@@ -15,9 +14,17 @@ STEAM_OWNED_GAMES_URL = (
 )
 
 
+class SteamStatsResponse(BaseModel):
+    """Response model for Steam statistics."""
+
+    total_games: int
+    total_playtime_forever_minutes: int
+    total_playtime_forever_hours: float
+
+
 async def get_steam_stats(
     client: httpx.AsyncClient, settings: SteamSettings
-) -> dict[str, Any]:
+) -> SteamStatsResponse:
     """Fetch Steam-owned games and calculate total playtime.
 
     Args:
@@ -54,17 +61,17 @@ async def get_steam_stats(
         game.get("playtime_forever", 0) for game in games
     )
 
-    return {
-        "total_games": len(games),
-        "total_playtime_forever_minutes": total_playtime_minutes,
-        "total_playtime_forever_hours": round(total_playtime_minutes / 60, 1),
-    }
+    return SteamStatsResponse(
+        total_games=len(games),
+        total_playtime_forever_minutes=total_playtime_minutes,
+        total_playtime_forever_hours=round(total_playtime_minutes / 60, 1),
+    )
 
 
 @router.get("/steam-stats", tags=["steam"])
 async def steam_stats(
     client: ClientDependency, settings: SettingsDependency
-) -> dict[str, Any]:
+) -> SteamStatsResponse:
     """API endpoint to return Steam stats.
 
     Args:
@@ -72,7 +79,7 @@ async def steam_stats(
         settings: The injected Steam API settings dependency.
 
     Returns:
-        dict: Steam stats including total games and playtime.
+        SteamStatsResponse: Steam stats including total games and playtime.
 
     Raises:
         HTTPException: For Steam API errors or invalid responses.
