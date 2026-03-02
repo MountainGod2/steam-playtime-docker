@@ -8,12 +8,12 @@ from pydantic import BaseModel
 from app.dependencies import ClientDependency, SettingsDependency, SteamSettings
 
 router = APIRouter()
-"""router: APIRouter instance for Steam-related endpoints."""
+"""APIRouter: Router instance for Steam-related endpoints."""
 
 STEAM_OWNED_GAMES_URL = (
     "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
 )
-"""STEAM_OWNED_GAMES_URL: URL for fetching Steam-owned games."""
+"""str: URL for the Steam API endpoint to get owned games."""
 
 
 class SteamStatsResponse(BaseModel):
