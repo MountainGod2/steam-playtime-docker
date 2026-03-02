@@ -56,5 +56,6 @@ app = FastAPI(
     lifespan=lifespan,
     root_path=root_path,
 )
+"""app: The main FastAPI application instance."""
 
 app.include_router(steam.router)
