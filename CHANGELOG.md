@@ -2,6 +2,28 @@
 
 <!-- version list -->
 
+## v1.2.1 (2026-03-02)
+
+### Bug Fixes
+
+- **deps**: Update dependency fastapi to v0.135.1
+  ([#35](https://github.com/MountainGod2/steam-playtime-docker/pull/35),
+  [`0e24ccb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0e24ccba774067b68c50917cb401d514bbb65646))
+
+### Continuous Integration
+
+- **pre-commit**: Fix configuration and lint files
+  ([`ba1f946`](https://github.com/MountainGod2/steam-playtime-docker/commit/ba1f94664c57f7c68f92638bc532972b50944432))
+
+### Documentation
+
+- **app**: Add docstrings for app and router
+  ([`f7f11b4`](https://github.com/MountainGod2/steam-playtime-docker/commit/f7f11b45819636d9daba38003bc929f5b6f476c3))
+
+- **app**: Add docstrings for autodocs
+  ([`5e88a68`](https://github.com/MountainGod2/steam-playtime-docker/commit/5e88a68f6b86032f02880bc24c80869ea79275f7))
+
+
 ## v1.2.0 (2026-03-02)
 
 ### Bug Fixes

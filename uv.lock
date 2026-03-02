@@ -1310,7 +1310,7 @@ wheels = [
 
 [[package]]
 name = "steam-playtime-docker"
-version = "1.2.0"
+version = "1.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
