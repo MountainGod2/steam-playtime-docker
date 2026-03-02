@@ -5,7 +5,7 @@ description = "Display playtime for Steam library."
 readme = "README.md"
 authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
 requires-python = ">=3.12"
-dependencies = ["fastapi[standard]==0.135.0", "httpx==0.28.1", "uvicorn==0.41.0"]
+dependencies = ["fastapi[standard]==0.135.1", "httpx==0.28.1", "uvicorn==0.41.0"]
 
 [build-system]
 requires = ["hatchling==1.29.0", "hatch-fancy-pypi-readme==25.1.0"]
