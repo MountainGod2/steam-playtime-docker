@@ -17,6 +17,7 @@ try:
     version: str = version("steam-playtime-docker")
 except PackageNotFoundError:
     from app import __version__
+
     version = __version__
 
 release: str = version
