@@ -40,4 +40,6 @@ def get_settings(request: Request) -> SteamSettings:
 
 
 ClientDependency = Annotated[httpx.AsyncClient, Depends(get_client)]
+"""ClientDependency: Dependency for the HTTPX async client."""
 SettingsDependency = Annotated[SteamSettings, Depends(get_settings)]
+"""SettingsDependency: Dependency for the Steam settings."""

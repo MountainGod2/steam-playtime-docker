@@ -12,7 +12,10 @@ from .dependencies import SteamSettings
 from .routers import steam
 
 LOGGER = logging.getLogger(__name__)
+"""LOGGER: Logger instance for the application."""
+
 HTTP_TIMEOUT = httpx.Timeout(5.0)
+"""HTTP_TIMEOUT: Timeout setting for HTTP requests, set to 5 seconds."""
 
 
 @asynccontextmanager
@@ -46,6 +49,8 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 root_path = os.getenv("ROOT_PATH", "")
+"""root_path: Optional root path, set via the ROOT_PATH environment variable."""
+
 app = FastAPI(
     title="Steam Playtime API",
     lifespan=lifespan,
