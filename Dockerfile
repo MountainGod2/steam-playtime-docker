@@ -36,6 +36,6 @@ USER nonroot
 
 WORKDIR /app
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000", "--log-level", "error"]
