@@ -2,6 +2,28 @@
 
 <!-- version list -->
 
+## v1.2.2 (2026-03-03)
+
+### Bug Fixes
+
+- **docker**: Change exposed port from 80 to 3000
+  ([`89bae24`](https://github.com/MountainGod2/steam-playtime-docker/commit/89bae2488121c00b48daa62d29a889195741b6ee))
+
+### Chores
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.3
+  ([#37](https://github.com/MountainGod2/steam-playtime-docker/pull/37),
+  [`d62d6b3`](https://github.com/MountainGod2/steam-playtime-docker/commit/d62d6b31e81b3fa61274a0e4c6c9dc7e751a0011))
+
+- **docs**: Remove unused html_static_path configuration
+  ([`cce3471`](https://github.com/MountainGod2/steam-playtime-docker/commit/cce34712527fdaced4a1bef17b88b846d9c91ec1))
+
+### Refactoring
+
+- **docs**: Change docstrings to match Google style
+  ([`87a1525`](https://github.com/MountainGod2/steam-playtime-docker/commit/87a1525ccbb77e3ba060fdc9d5de71b27a2ac6e3))
+
+
 ## v1.2.1 (2026-03-02)
 
 ### Bug Fixes
