@@ -70,7 +70,7 @@ async def get_steam_stats(
     )
 
 
-@router.get("/steam-stats", tags=["steam"])
+@router.get("/steam-stats")
 async def steam_stats(
     client: ClientDependency, settings: SettingsDependency
 ) -> SteamStatsResponse:

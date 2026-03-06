@@ -48,4 +48,4 @@ app = FastAPI(
 )
 """FastAPI: The main FastAPI application instance."""
 
-app.include_router(steam.router)
+app.include_router(steam.router, tags=["steam"])
