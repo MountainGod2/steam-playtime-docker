@@ -1,18 +1,19 @@
 """Dependencies for the FastAPI application."""
 
-from dataclasses import dataclass
+from functools import lru_cache
 from typing import Annotated
 
 import httpx
 from fastapi import Depends, Request
+from pydantic import Field
+from pydantic_settings import BaseSettings
 
 
-@dataclass(frozen=True)
-class SteamSettings:
+class SteamSettings(BaseSettings):
     """Configuration for Steam API access."""
 
-    api_key: str
-    user_id: str
+    api_key: str = Field(validation_alias="STEAM_API_KEY")
+    user_id: str = Field(validation_alias="STEAM_ID_64")
 
 
 def get_client(request: Request) -> httpx.AsyncClient:
@@ -27,16 +28,14 @@ def get_client(request: Request) -> httpx.AsyncClient:
     return request.app.state.client
 
 
-def get_settings(request: Request) -> SteamSettings:
-    """Get the Steam settings from the application state.
-
-    Args:
-        request: The incoming FastAPI request.
+@lru_cache
+def get_settings() -> SteamSettings:
+    """Get the Steam settings. Cached using lru_cache.
 
     Returns:
         SteamSettings: The configuration settings.
     """
-    return request.app.state.settings
+    return SteamSettings()
 
 
 ClientDependency = Annotated[httpx.AsyncClient, Depends(get_client)]
