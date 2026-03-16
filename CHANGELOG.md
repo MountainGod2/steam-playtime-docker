@@ -2,6 +2,107 @@
 
 <!-- version list -->
 
+## v1.2.3 (2026-03-16)
+
+### Bug Fixes
+
+- **deps**: Update dependency uvicorn to v0.42.0
+  ([#56](https://github.com/MountainGod2/steam-playtime-docker/pull/56),
+  [`6fdf4b7`](https://github.com/MountainGod2/steam-playtime-docker/commit/6fdf4b7b69a31369d9b9a1c514f4b7183e811692))
+
+### Chores
+
+- **deps**: Lock file maintenance
+  ([#55](https://github.com/MountainGod2/steam-playtime-docker/pull/55),
+  [`cbfaf91`](https://github.com/MountainGod2/steam-playtime-docker/commit/cbfaf918bccf5570561350bd597a138856c19860))
+
+- **deps**: Lock file maintenance
+  ([#48](https://github.com/MountainGod2/steam-playtime-docker/pull/48),
+  [`ec35e2c`](https://github.com/MountainGod2/steam-playtime-docker/commit/ec35e2cd484e6f244d80feaf81193699b56bae5e))
+
+- **deps**: Lock file maintenance
+  ([#36](https://github.com/MountainGod2/steam-playtime-docker/pull/36),
+  [`404721d`](https://github.com/MountainGod2/steam-playtime-docker/commit/404721da4f31113380cc7930145a542338a56926))
+
+- **deps**: Update actions/download-artifact digest to 3e5f45b
+  ([#51](https://github.com/MountainGod2/steam-playtime-docker/pull/51),
+  [`c370e98`](https://github.com/MountainGod2/steam-playtime-docker/commit/c370e98d4e963bf59d99f21b88d47913ecba69db))
+
+- **deps**: Update astral-sh/setup-uv digest to 6ee6290
+  ([#50](https://github.com/MountainGod2/steam-playtime-docker/pull/50),
+  [`153f3a2`](https://github.com/MountainGod2/steam-playtime-docker/commit/153f3a2961b0ddccb72d9120bf389237bb2fc87a))
+
+- **deps**: Update astral-sh/setup-uv digest to e06108d
+  ([#53](https://github.com/MountainGod2/steam-playtime-docker/pull/53),
+  [`ca7adcc`](https://github.com/MountainGod2/steam-playtime-docker/commit/ca7adccb70c6981b1ad6c62628b7f130efdb3be1))
+
+- **deps**: Update dependencies and add bandit
+  ([`1415b2c`](https://github.com/MountainGod2/steam-playtime-docker/commit/1415b2cf11db872ac1e798ccde0e6d442191af2a))
+
+- **deps**: Update dependency pyrefly to v0.55.0
+  ([#39](https://github.com/MountainGod2/steam-playtime-docker/pull/39),
+  [`b895240`](https://github.com/MountainGod2/steam-playtime-docker/commit/b89524069bf2a38edbc88305ae18fdfe5bd8c534))
+
+- **deps**: Update dependency pyrefly to v0.56.0
+  ([#52](https://github.com/MountainGod2/steam-playtime-docker/pull/52),
+  [`fd0fd7e`](https://github.com/MountainGod2/steam-playtime-docker/commit/fd0fd7e0061871c7703b62471b4255498e2403e8))
+
+- **deps**: Update dependency ruff to v0.15.5
+  ([#43](https://github.com/MountainGod2/steam-playtime-docker/pull/43),
+  [`ce68f6f`](https://github.com/MountainGod2/steam-playtime-docker/commit/ce68f6fd1251dbf55aa61d684ff1f616d1cc95ce))
+
+- **deps**: Update dependency ruff to v0.15.6
+  ([#54](https://github.com/MountainGod2/steam-playtime-docker/pull/54),
+  [`4a924f9`](https://github.com/MountainGod2/steam-playtime-docker/commit/4a924f9084fdb1071e66ae70da713e9ca17b5947))
+
+- **deps**: Update dependency sphinx-autoapi to v3.8.0
+  ([#47](https://github.com/MountainGod2/steam-playtime-docker/pull/47),
+  [`4eb8d91`](https://github.com/MountainGod2/steam-playtime-docker/commit/4eb8d9108e776752143ed8f1f9d435b6c650aa2d))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.5
+  ([#38](https://github.com/MountainGod2/steam-playtime-docker/pull/38),
+  [`4f9c99a`](https://github.com/MountainGod2/steam-playtime-docker/commit/4f9c99ae7ba0b486d5508b9fda4fa801ce55b8fe))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.6
+  ([#40](https://github.com/MountainGod2/steam-playtime-docker/pull/40),
+  [`654fe0b`](https://github.com/MountainGod2/steam-playtime-docker/commit/654fe0bfb9eac9c397f80d15bad29ed8c5c741fd))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.7
+  ([#44](https://github.com/MountainGod2/steam-playtime-docker/pull/44),
+  [`43424f7`](https://github.com/MountainGod2/steam-playtime-docker/commit/43424f79372c059d56f4611c4d05e62eea1cc13b))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.8
+  ([#49](https://github.com/MountainGod2/steam-playtime-docker/pull/49),
+  [`cb734e2`](https://github.com/MountainGod2/steam-playtime-docker/commit/cb734e299fade92b418a713d10a7610ce90f439f))
+
+- **deps**: Update docker/build-push-action action to v7
+  ([#45](https://github.com/MountainGod2/steam-playtime-docker/pull/45),
+  [`48ca673`](https://github.com/MountainGod2/steam-playtime-docker/commit/48ca673b80863f89c7c08bbe7bff4d4b6d1952d2))
+
+- **deps**: Update docker/login-action action to v4
+  ([#41](https://github.com/MountainGod2/steam-playtime-docker/pull/41),
+  [`18c7d17`](https://github.com/MountainGod2/steam-playtime-docker/commit/18c7d17fac0e48d31b00b5d9f25a28a1fc709c55))
+
+- **deps**: Update docker/metadata-action action to v6
+  ([#46](https://github.com/MountainGod2/steam-playtime-docker/pull/46),
+  [`55c5246`](https://github.com/MountainGod2/steam-playtime-docker/commit/55c5246316130e7dea8f211267c57a588d4be35f))
+
+- **deps**: Update docker/setup-buildx-action action to v4
+  ([#42](https://github.com/MountainGod2/steam-playtime-docker/pull/42),
+  [`e250b6f`](https://github.com/MountainGod2/steam-playtime-docker/commit/e250b6f25c0558b42633ca46f14b71ffefcb510a))
+
+### Refactoring
+
+- Replace dataclass and update get_settings function
+  ([`e08d0b2`](https://github.com/MountainGod2/steam-playtime-docker/commit/e08d0b2d7387e2fe6c5f8033bd132e3f0a5f1fda))
+
+- **main**: Update lifespan function to use get_settings
+  ([`fda5df1`](https://github.com/MountainGod2/steam-playtime-docker/commit/fda5df19b70cbf9759055c29491d33d7720d8f6e))
+
+- **router**: Move tag location to match docs
+  ([`fbc54e2`](https://github.com/MountainGod2/steam-playtime-docker/commit/fbc54e2e6c4a93799db5b6d52ce3232b234fa9f5))
+
+
 ## v1.2.2 (2026-03-03)
 
 ### Bug Fixes
