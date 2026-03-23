@@ -2,6 +2,49 @@
 
 <!-- version list -->
 
+## v1.2.4 (2026-03-23)
+
+### Bug Fixes
+
+- **deps**: Update dependency fastapi to v0.135.2
+  ([#65](https://github.com/MountainGod2/steam-playtime-docker/pull/65),
+  [`b984267`](https://github.com/MountainGod2/steam-playtime-docker/commit/b9842674ae44aaa942ffdc44e66cd134365f45ae))
+
+### Chores
+
+- **deps**: Lock file maintenance
+  ([#64](https://github.com/MountainGod2/steam-playtime-docker/pull/64),
+  [`972d68a`](https://github.com/MountainGod2/steam-playtime-docker/commit/972d68a63a33945494b4bb62bf165faae3220e89))
+
+- **deps**: Update actions/cache digest to 6682284
+  ([#60](https://github.com/MountainGod2/steam-playtime-docker/pull/60),
+  [`b4658a2`](https://github.com/MountainGod2/steam-playtime-docker/commit/b4658a2ba714338bfa0330b8d1fc7bb1f3d5e44f))
+
+- **deps**: Update astral-sh/setup-uv digest to 37802ad
+  ([#57](https://github.com/MountainGod2/steam-playtime-docker/pull/57),
+  [`fb21ac6`](https://github.com/MountainGod2/steam-playtime-docker/commit/fb21ac6d600da0d2651d97de69e86b068747e58e))
+
+- **deps**: Update debian:bookworm-slim docker digest to f065376
+  ([#58](https://github.com/MountainGod2/steam-playtime-docker/pull/58),
+  [`a2f6bb3`](https://github.com/MountainGod2/steam-playtime-docker/commit/a2f6bb3d0a42ffa26c95eb59dde304bede1230d2))
+
+- **deps**: Update dependency pyrefly to v0.57.0
+  ([#59](https://github.com/MountainGod2/steam-playtime-docker/pull/59),
+  [`988ec39`](https://github.com/MountainGod2/steam-playtime-docker/commit/988ec39d163bb7884159e7e4c96a4727ca73607e))
+
+- **deps**: Update dependency pyrefly to v0.57.1
+  ([#61](https://github.com/MountainGod2/steam-playtime-docker/pull/61),
+  [`75ad939`](https://github.com/MountainGod2/steam-playtime-docker/commit/75ad93982a10b581baf0916772fec36ef37a3b6e))
+
+- **deps**: Update dependency ruff to v0.15.7
+  ([#62](https://github.com/MountainGod2/steam-playtime-docker/pull/62),
+  [`5b4139e`](https://github.com/MountainGod2/steam-playtime-docker/commit/5b4139edb2d1b748e4e60cc4372b42ca4132def8))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.9
+  ([#63](https://github.com/MountainGod2/steam-playtime-docker/pull/63),
+  [`c011441`](https://github.com/MountainGod2/steam-playtime-docker/commit/c01144127a5c91efc2bf123f66dc8942fc13dfff))
+
+
 ## v1.2.3 (2026-03-16)
 
 ### Bug Fixes
