@@ -2,6 +2,41 @@
 
 <!-- version list -->
 
+## v1.2.5 (2026-04-01)
+
+### Bug Fixes
+
+- **deps**: Update dependency fastapi to v0.135.3
+  ([#72](https://github.com/MountainGod2/steam-playtime-docker/pull/72),
+  [`0ceb422`](https://github.com/MountainGod2/steam-playtime-docker/commit/0ceb422e90ecfe6cde00fcb2f2c2fbdcd73ec3ec))
+
+### Chores
+
+- **deps**: Lock file maintenance
+  ([#70](https://github.com/MountainGod2/steam-playtime-docker/pull/70),
+  [`1b24fe8`](https://github.com/MountainGod2/steam-playtime-docker/commit/1b24fe86b2b375290fa9003ee2637e64eadf9637))
+
+- **deps**: Update dependency pyrefly to v0.58.0
+  ([#68](https://github.com/MountainGod2/steam-playtime-docker/pull/68),
+  [`ec149c1`](https://github.com/MountainGod2/steam-playtime-docker/commit/ec149c165eabd17e92db0bda7120134ad08fc7b2))
+
+- **deps**: Update dependency pyrefly to v0.59.0
+  ([#71](https://github.com/MountainGod2/steam-playtime-docker/pull/71),
+  [`0ca189d`](https://github.com/MountainGod2/steam-playtime-docker/commit/0ca189df10da51bd3460c38d749bb92c71bf639a))
+
+- **deps**: Update dependency ruff to v0.15.8
+  ([#69](https://github.com/MountainGod2/steam-playtime-docker/pull/69),
+  [`8d53fec`](https://github.com/MountainGod2/steam-playtime-docker/commit/8d53fecca23f712c3bc762ee12f3fee8fc50a934))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.10
+  ([#66](https://github.com/MountainGod2/steam-playtime-docker/pull/66),
+  [`547bc2c`](https://github.com/MountainGod2/steam-playtime-docker/commit/547bc2c75fcf2cdbd65d2bf66829cc88698e8825))
+
+- **deps**: Update dependency sphinx-autodoc-typehints to v3.9.11
+  ([#67](https://github.com/MountainGod2/steam-playtime-docker/pull/67),
+  [`9c77615`](https://github.com/MountainGod2/steam-playtime-docker/commit/9c776158be5dac6c4e5898210c0d9f0ae69d81ba))
+
+
 ## v1.2.4 (2026-03-23)
 
 ### Bug Fixes
