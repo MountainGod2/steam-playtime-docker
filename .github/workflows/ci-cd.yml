@@ -24,6 +24,7 @@ permissions:
   security-events: write
   attestations: write
   id-token: write
+  pages: write
 
 jobs:
   test:
@@ -35,11 +36,13 @@ jobs:
         python-version: ["3.12", "3.13", "3.14"]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           python-version: ${{ matrix.python-version }}
-          enable-cache: true
+          enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
       - run: uv sync --all-groups --frozen
@@ -64,11 +67,12 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           python-version: "3.13"
-          enable-cache: true
+          enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
       - run: uv sync --all-groups --frozen
@@ -112,13 +116,16 @@ jobs:
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
+          persist-credentials: false
 
-      - run: git reset --hard ${{ github.sha }}
+      - env:
+          GIT_SHA: ${{ github.sha }}
+        run: git reset --hard "$GIT_SHA"
 
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           python-version: "3.13"
-          enable-cache: true
+          enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
       - run: uv sync --all-groups --frozen
@@ -144,7 +151,10 @@ jobs:
 
       - if: steps.publish.outputs.released == 'true'
         run: |
-          printf "version=%s\ntag=%s\n" "${{ steps.publish.outputs.version }}" "${{ steps.publish.outputs.tag }}" > release-info.txt
+          printf "version=%s\ntag=%s\n" "${STEPS_PUBLISH_OUTPUTS_VERSION}" "${STEPS_PUBLISH_OUTPUTS_TAG}" > release-info.txt
+        env:
+          STEPS_PUBLISH_OUTPUTS_VERSION: ${{ steps.publish.outputs.version }}
+          STEPS_PUBLISH_OUTPUTS_TAG: ${{ steps.publish.outputs.tag }}
 
       - if: steps.publish.outputs.released == 'true'
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7
@@ -153,3 +163,41 @@ jobs:
           path: release-info.txt
           if-no-files-found: error
           retention-days: 2
+
+  docs:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: ${{ github.workflow }}-pages-${{ github.ref_name }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          python-version: "3.13"
+          enable-cache: false
+          cache-suffix: ${{ hashFiles('uv.lock') }}
+
+      - run: uv sync --frozen
+
+      - run: uv run python scripts/export_openapi.py docs/openapi.json
+
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: docs
+
+      - id: deploy
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
