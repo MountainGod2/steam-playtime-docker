@@ -73,5 +73,10 @@ format.indent-style = "space"
 format.skip-magic-trailing-comma = false
 format.line-ending = "auto"
 
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = [
+    "INP001", # Allow missing __init__.py in scripts
+    "T201",  # Allow print statements in scripts
+]
 [tool.bandit]
 exclude_dirs = [".venv"]
