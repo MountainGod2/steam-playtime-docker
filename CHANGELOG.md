@@ -2,6 +2,57 @@
 
 <!-- version list -->
 
+## v1.3.0 (2026-04-03)
+
+### Chores
+
+- Add openapi.json to .gitignore
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+- Remove sphinx documentation files
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+- **deps**: Update dependency pyrefly to v0.59.1
+  ([#73](https://github.com/MountainGod2/steam-playtime-docker/pull/73),
+  [`b8ad858`](https://github.com/MountainGod2/steam-playtime-docker/commit/b8ad8587766b783e9766a6c1971302ca3763fb17))
+
+- **deps**: Update dependency ruff to v0.15.9
+  ([#75](https://github.com/MountainGod2/steam-playtime-docker/pull/75),
+  [`af33b82`](https://github.com/MountainGod2/steam-playtime-docker/commit/af33b82e35e256ded962d45b66f66e8ccac4463f))
+
+- **deps**: Update docker/login-action digest to 4907a6d
+  ([#74](https://github.com/MountainGod2/steam-playtime-docker/pull/74),
+  [`97c28c7`](https://github.com/MountainGod2/steam-playtime-docker/commit/97c28c7bc95deea2865dcf453de3da62d2d17acd))
+
+### Continuous Integration
+
+- Improved credential handling and environment variable management
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+- **docs**: Separate out documentation workflow
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+### Features
+
+- Add OpenAPI schema export script
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+- **docs**: Add OpenAPI schema
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+### Refactoring
+
+- **index**: Pin Redoc script source to specific version
+  ([#76](https://github.com/MountainGod2/steam-playtime-docker/pull/76),
+  [`0b83afb`](https://github.com/MountainGod2/steam-playtime-docker/commit/0b83afbe4171c30a4b130f5801907197cba8249b))
+
+
 ## v1.2.5 (2026-04-01)
 
 ### Bug Fixes
