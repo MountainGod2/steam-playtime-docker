@@ -1,7 +1,7 @@
 name: Release Container
 
 on:
-  workflow_run:
+  workflow_run: # zizmor: ignore[dangerous-triggers]
     workflows: ["CI/CD"]
     types: [completed]
 
@@ -43,10 +43,10 @@ jobs:
 
       - name: Load release info
         id: load
-        run: |
+        run: | # zizmor: ignore[github-env]
           set -euo pipefail
           if [[ ! -f release-info/release-info.txt ]]; then
-            if [[ "${{ github.event.workflow_run.event }}" == "schedule" ]]; then
+            if [[ "${GITHUB_EVENT_WORKFLOW_RUN_EVENT}" == "schedule" ]]; then
               echo "No release info found for scheduled run; building nightly image from main."
               echo "NIGHTLY_BUILD=true" >> "$GITHUB_ENV"
               echo "should_build=true" >> "$GITHUB_OUTPUT"
@@ -60,7 +60,8 @@ jobs:
           fi
 
           echo "NIGHTLY_BUILD=false" >> "$GITHUB_ENV"
-          source release-info/release-info.txt
+          version=$(grep '^version=' release-info/release-info.txt | cut -d= -f2)
+          tag=$(grep '^tag=' release-info/release-info.txt | cut -d= -f2)
           echo "RELEASE_VERSION=${version}" >> "$GITHUB_ENV"
           echo "RELEASE_TAG=${tag}" >> "$GITHUB_ENV"
           major="${version%%.*}"
@@ -73,12 +74,15 @@ jobs:
             echo "IS_MAJOR_ZERO=false" >> "$GITHUB_ENV"
           fi
           echo "should_build=true" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_EVENT_WORKFLOW_RUN_EVENT: ${{ github.event.workflow_run.event }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         if: steps.load.outputs.should_build == 'true'
         with:
           ref: ${{ env.NIGHTLY_BUILD == 'true' && github.event.workflow_run.head_sha || env.RELEASE_TAG }}
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4
@@ -118,6 +122,7 @@ jobs:
           key: ${{ runner.os }}-uv-${{ hashFiles('pyproject.toml', 'uv.lock') }}
           restore-keys: |
             ${{ runner.os }}-uv-
+          lookup-only: true
 
       - name: Restore Docker cache mounts
         uses: reproducible-containers/buildkit-cache-dance@1b8ab18fbda5ad3646e3fcc9ed9dd41ce2f297b4 # v3

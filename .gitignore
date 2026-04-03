@@ -27,6 +27,7 @@ dist/
 # Documentation
 docs/_build/
 docs/api/
+docs/openapi.json
 html/
 
 # Coverage

@@ -10,6 +10,7 @@ from fastapi import FastAPI
 
 from .dependencies import get_settings
 from .routers import steam
+from .version import __version__
 
 LOGGER = logging.getLogger(__name__)
 """logging.Logger: Logger instance for the application."""
@@ -43,6 +44,7 @@ root_path = os.getenv("ROOT_PATH", "")  #: :meta hide-value:
 
 app = FastAPI(
     title="Steam Playtime API",
+    version=__version__,
     lifespan=lifespan,
     root_path=root_path,
 )

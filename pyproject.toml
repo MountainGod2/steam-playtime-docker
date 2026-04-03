@@ -24,14 +24,6 @@ dev = [
     "python-semantic-release==10.5.3",
     "bandit[sarif,toml]==1.9.4",
 ]
-docs = [
-    "sphinx==9.1.0",
-    "sphinx-autoapi==3.8.0",
-    "sphinx-autodoc-typehints==3.9.11",
-    "furo==2025.12.19",
-    "sphinx-copybutton==0.5.2",
-    "myst-parser==5.0.0",
-]
 
 [tool.hatch]
 build.targets.wheel.packages = ["app"]
@@ -81,5 +73,10 @@ format.indent-style = "space"
 format.skip-magic-trailing-comma = false
 format.line-ending = "auto"
 
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = [
+    "INP001", # Allow missing __init__.py in scripts
+    "T201",  # Allow print statements in scripts
+]
 [tool.bandit]
 exclude_dirs = [".venv"]
