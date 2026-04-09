@@ -19,7 +19,7 @@ build-backend = "hatchling.build"
 [dependency-groups]
 dev = [
     "pyrefly==0.60.0",
-    "ruff==0.15.9",
+    "ruff==0.15.10",
     "pre-commit==4.5.1",
     "python-semantic-release==10.5.3",
     "bandit[sarif,toml]==1.9.4",
