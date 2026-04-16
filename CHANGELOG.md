@@ -2,6 +2,61 @@
 
 <!-- version list -->
 
+## v1.3.3 (2026-04-16)
+
+### Bug Fixes
+
+- **deps**: Update dependency fastapi to v0.136.0
+  ([#94](https://github.com/MountainGod2/steam-playtime-docker/pull/94),
+  [`763b025`](https://github.com/MountainGod2/steam-playtime-docker/commit/763b025a0122f6d5d6014a6a64208667e34cc03e))
+
+### Chores
+
+- **deps**: Lock file maintenance
+  ([#90](https://github.com/MountainGod2/steam-playtime-docker/pull/90),
+  [`dbf5d5f`](https://github.com/MountainGod2/steam-playtime-docker/commit/dbf5d5f6b8e1559c8bf565c50dd4cb01e5ef01c3))
+
+- **deps**: Update actions/cache digest to 27d5ce7
+  ([#91](https://github.com/MountainGod2/steam-playtime-docker/pull/91),
+  [`5b7c18b`](https://github.com/MountainGod2/steam-playtime-docker/commit/5b7c18b2a33d9e3fe0791f25a6e034e28aeed4aa))
+
+- **deps**: Update actions/upload-artifact digest to 043fb46
+  ([#88](https://github.com/MountainGod2/steam-playtime-docker/pull/88),
+  [`0fcf5e7`](https://github.com/MountainGod2/steam-playtime-docker/commit/0fcf5e7a4527f2bb1e6cc42186d9c6b16eedd843))
+
+- **deps**: Update actions/upload-pages-artifact action to v5
+  ([#93](https://github.com/MountainGod2/steam-playtime-docker/pull/93),
+  [`aaed070`](https://github.com/MountainGod2/steam-playtime-docker/commit/aaed070c0580bfd19ba76abad7cbc975a5c41f21))
+
+- **deps**: Update debian:bookworm-slim docker digest to 4724b8c
+  ([#84](https://github.com/MountainGod2/steam-playtime-docker/pull/84),
+  [`13a91c2`](https://github.com/MountainGod2/steam-playtime-docker/commit/13a91c2a9b5eed2d753370912f47ca5243887aba))
+
+- **deps**: Update dependency pyrefly to v0.60.0
+  ([#83](https://github.com/MountainGod2/steam-playtime-docker/pull/83),
+  [`1015b99`](https://github.com/MountainGod2/steam-playtime-docker/commit/1015b996af2cdeb43b02edde4e5f3137d6e38412))
+
+- **deps**: Update dependency pyrefly to v0.60.1
+  ([#86](https://github.com/MountainGod2/steam-playtime-docker/pull/86),
+  [`6107d51`](https://github.com/MountainGod2/steam-playtime-docker/commit/6107d51129d9696e5918f11eb399e5b64ac9854e))
+
+- **deps**: Update dependency pyrefly to v0.60.2
+  ([#89](https://github.com/MountainGod2/steam-playtime-docker/pull/89),
+  [`821ded1`](https://github.com/MountainGod2/steam-playtime-docker/commit/821ded1f7f6cc13ac082e45186f5c55acf8b2957))
+
+- **deps**: Update dependency pyrefly to v0.61.0
+  ([#92](https://github.com/MountainGod2/steam-playtime-docker/pull/92),
+  [`ebd02f0`](https://github.com/MountainGod2/steam-playtime-docker/commit/ebd02f036584d80c0c427e51b1ccef6b7cd66ecf))
+
+- **deps**: Update dependency ruff to v0.15.10
+  ([#85](https://github.com/MountainGod2/steam-playtime-docker/pull/85),
+  [`c441bf2`](https://github.com/MountainGod2/steam-playtime-docker/commit/c441bf2ddd11764b03ea1b15ae5eea1c5e61857a))
+
+- **deps**: Update docker/build-push-action digest to bcafcac
+  ([#87](https://github.com/MountainGod2/steam-playtime-docker/pull/87),
+  [`7c04979`](https://github.com/MountainGod2/steam-playtime-docker/commit/7c04979277f524fd2d2121148dc44f418df9bb9a))
+
+
 ## v1.3.2 (2026-04-06)
 
 ### Bug Fixes
