@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v1.3.4 (2026-04-20)
+
+### Bug Fixes
+
+- **deps**: Update dependency pydantic-settings to v2.14.0
+  ([#99](https://github.com/MountainGod2/steam-playtime-docker/pull/99),
+  [`7516e43`](https://github.com/MountainGod2/steam-playtime-docker/commit/7516e43ef049d4d2f07424846beadec0dfab22ed))
+
+### Chores
+
+- **deps**: Lock file maintenance
+  ([#98](https://github.com/MountainGod2/steam-playtime-docker/pull/98),
+  [`b3609c1`](https://github.com/MountainGod2/steam-playtime-docker/commit/b3609c113f25d894d7b78ce7bf45ef985fd6c9b5))
+
+- **deps**: Update dependency pyrefly to v0.61.1
+  ([#97](https://github.com/MountainGod2/steam-playtime-docker/pull/97),
+  [`b15769e`](https://github.com/MountainGod2/steam-playtime-docker/commit/b15769e4d4a596eb6c44d2242588bcbe188a5368))
+
+- **deps**: Update dependency ruff to v0.15.11
+  ([#96](https://github.com/MountainGod2/steam-playtime-docker/pull/96),
+  [`53a2956`](https://github.com/MountainGod2/steam-playtime-docker/commit/53a29561bfb4285606375c905efec94f400aa5cf))
+
+
 ## v1.3.3 (2026-04-16)
 
 ### Bug Fixes
