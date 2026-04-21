@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v1.3.5 (2026-04-21)
+
+### Bug Fixes
+
+- **deps**: Update dependency uvicorn to v0.45.0
+  ([#101](https://github.com/MountainGod2/steam-playtime-docker/pull/101),
+  [`81e95f7`](https://github.com/MountainGod2/steam-playtime-docker/commit/81e95f729b4af55b896a5d851ab322eb682600cf))
+
+### Chores
+
+- **deps**: Update dependency pyrefly to v0.62.0
+  ([#100](https://github.com/MountainGod2/steam-playtime-docker/pull/100),
+  [`e20e536`](https://github.com/MountainGod2/steam-playtime-docker/commit/e20e536ee2e6338f5ebb937eb8ca0dea051a1633))
+
+
 ## v1.3.4 (2026-04-20)
 
 ### Bug Fixes
