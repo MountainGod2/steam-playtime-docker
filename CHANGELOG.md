@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v1.3.6 (2026-04-23)
+
+### Bug Fixes
+
+- **deps**: Update dependency uvicorn to v0.46.0
+  ([#104](https://github.com/MountainGod2/steam-playtime-docker/pull/104),
+  [`41307d7`](https://github.com/MountainGod2/steam-playtime-docker/commit/41307d7ca543e3dc79bdc3f7cfb470367f3c4cbb))
+
+### Chores
+
+- **deps**: Update astral-sh/setup-uv action to v8
+  ([#95](https://github.com/MountainGod2/steam-playtime-docker/pull/95),
+  [`f57e4cc`](https://github.com/MountainGod2/steam-playtime-docker/commit/f57e4cc86b4ffebc4c0c32b5cbafb48e53a2124f))
+
+- **deps**: Update debian:bookworm-slim docker digest to f9c6a2f
+  ([#103](https://github.com/MountainGod2/steam-playtime-docker/pull/103),
+  [`ca89112`](https://github.com/MountainGod2/steam-playtime-docker/commit/ca891124d1d0e65bc476f1ea62cce7eaced0d55c))
+
+- **deps**: Update dependency pre-commit to v4.6.0
+  ([#102](https://github.com/MountainGod2/steam-playtime-docker/pull/102),
+  [`7ddf8c3`](https://github.com/MountainGod2/steam-playtime-docker/commit/7ddf8c3ea80dff75705075eac29499015d26710d))
+
+
 ## v1.3.5 (2026-04-21)
 
 ### Bug Fixes
