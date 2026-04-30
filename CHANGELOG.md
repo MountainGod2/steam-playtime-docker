@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.3.8 (2026-04-30)
+
+### Bug Fixes
+
+- **pyproject**: Update changelog configuration and adjust linting rules
+  ([#110](https://github.com/MountainGod2/steam-playtime-docker/pull/110),
+  [`218e30d`](https://github.com/MountainGod2/steam-playtime-docker/commit/218e30d26ab2ed47c6041755f9c6093ed2094af9))
+
+
 ## v1.3.7 (2026-04-24)
 
 ### Bug Fixes
