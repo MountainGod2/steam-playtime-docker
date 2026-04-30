@@ -39,7 +39,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         await app.state.client.aclose()
 
 
-root_path = os.getenv("ROOT_PATH", "")  #: :meta hide-value:
+root_path = os.getenv("ROOT_PATH", "")
 """str: Optional root path, set via the ROOT_PATH environment variable."""
 
 app = FastAPI(
@@ -50,4 +50,4 @@ app = FastAPI(
 )
 """FastAPI: The main FastAPI application instance."""
 
-app.include_router(steam.router, tags=["steam"])
+app.include_router(steam.router)
