@@ -73,28 +73,38 @@
     <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin="anonymous"></script>
     <script>
       async function loadSpec() {
-        const resp = await fetch('openapi.json');
+        const resp = await fetch(new URL('/openapi.json', location.origin));
         if (!resp.ok) throw new Error('Failed to load openapi.json');
         return resp.json();
       }
 
       async function initUI(serverUrl) {
-        const spec = await loadSpec();
-        if (serverUrl) {
-          spec.servers = [{ url: serverUrl, description: 'Custom server' }];
+        try {
+          const spec = await loadSpec();
+          if (serverUrl) {
+            spec.servers = [{ url: serverUrl, description: 'Custom server' }];
+          }
+          document.getElementById('swagger-ui').innerHTML = '';
+          SwaggerUIBundle({
+            spec,
+            dom_id: '#swagger-ui',
+            presets: [
+              SwaggerUIBundle.presets.apis,
+              SwaggerUIBundle.SwaggerUIStandalonePreset,
+            ],
+            layout: 'BaseLayout',
+            deepLinking: true,
+            tryItOutEnabled: true,
+          });
+        } catch (err) {
+          document.getElementById('swagger-ui').innerHTML =
+            '<div style="padding:2rem;font-family:sans-serif;color:#c00;">'
+            + '<strong>Failed to load API documentation.</strong><br>'
+            + '<span style="font-size:0.9em;color:#555;">' + (err && err.message ? err.message : 'Unknown error') + '</span><br><br>'
+            + '<button onclick="initUI(document.getElementById(\'server-url\').value.trim() || null)" '
+            + 'style="padding:6px 14px;cursor:pointer;">Retry</button>'
+            + '</div>';
         }
-        document.getElementById('swagger-ui').innerHTML = '';
-        SwaggerUIBundle({
-          spec,
-          dom_id: '#swagger-ui',
-          presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIBundle.SwaggerUIStandalonePreset,
-          ],
-          layout: 'BaseLayout',
-          deepLinking: true,
-          tryItOutEnabled: true,
-        });
       }
 
       function applyServer() {
