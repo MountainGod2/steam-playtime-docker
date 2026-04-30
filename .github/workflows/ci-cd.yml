@@ -101,6 +101,7 @@ jobs:
       contents: write
       packages: write
       id-token: write
+      attestations: write
     outputs:
       released: ${{ steps.publish.outputs.released }}
       version: ${{ steps.publish.outputs.version }}
