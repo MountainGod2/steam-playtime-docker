@@ -47,7 +47,7 @@ commit_parser_options.minor_tags = ["feat"]
 commit_parser_options.patch_tags = ["fix", "perf"]
 commit_parser_options.parse_squash_commits = true
 commit_parser_options.ignore_merge_commits = true
-exclude_commit_patterns.patterns = [
+changelog.exclude_commit_patterns = [
     '''chore(?:\([^)]*?\))?: .+''',
     '''ci(?:\([^)]*?\))?: .+''',
     '''docs(?:\([^)]*?\))?: .+''',
@@ -76,7 +76,7 @@ format.line-ending = "auto"
 [tool.ruff.lint.per-file-ignores]
 "scripts/*" = [
     "INP001", # Allow missing __init__.py in scripts
-    "T201",  # Allow print statements in scripts
+    "T201",   # Allow print statements in scripts
 ]
 [tool.bandit]
 exclude_dirs = [".venv"]
