@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v1.4.0 (2026-04-30)
+
+### Bug Fixes
+
+- **docs**: Improve error handling and server URL fetching
+  ([#114](https://github.com/MountainGod2/steam-playtime-docker/pull/114),
+  [`b515d97`](https://github.com/MountainGod2/steam-playtime-docker/commit/b515d974f2c188dbae4f501b3a8b42e61e7f78c9))
+
+### Features
+
+- Migrate HTTP client from httpx to aiohttp
+  ([#114](https://github.com/MountainGod2/steam-playtime-docker/pull/114),
+  [`b515d97`](https://github.com/MountainGod2/steam-playtime-docker/commit/b515d974f2c188dbae4f501b3a8b42e61e7f78c9))
+
+- **docs**: Update API docs with server URL input
+  ([#114](https://github.com/MountainGod2/steam-playtime-docker/pull/114),
+  [`b515d97`](https://github.com/MountainGod2/steam-playtime-docker/commit/b515d974f2c188dbae4f501b3a8b42e61e7f78c9))
+
+
 ## v1.3.9 (2026-04-30)
 
 ### Bug Fixes
