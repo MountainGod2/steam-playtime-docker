@@ -7,8 +7,6 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: "0 1 * * *" # Every day at 01:00 UTC
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -101,6 +99,8 @@ jobs:
       cancel-in-progress: false
     permissions:
       contents: write
+      packages: write
+      id-token: write
     outputs:
       released: ${{ steps.publish.outputs.released }}
       version: ${{ steps.publish.outputs.version }}
@@ -151,9 +151,9 @@ jobs:
           STEPS_PUBLISH_OUTPUTS_TAG: ${{ steps.publish.outputs.tag }}
 
       - if: steps.publish.outputs.released == 'true'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
-          ref: ${{ github.event_name == 'schedule' && github.sha || needs.release.outputs.tag }}
+          ref: ${{ steps.publish.outputs.tag }}
           persist-credentials: false
 
       - name: Setup Docker Buildx
@@ -176,11 +176,10 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=raw,value=nightly,enable=${{ github.event_name == 'schedule' }}
-            type=semver,pattern={{version}},value=${{ needs.release.outputs.version }},enable=${{ github.event_name != 'schedule' }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ needs.release.outputs.version }},enable=${{ github.event_name != 'schedule' }}
-            type=semver,pattern={{major}},value=${{ needs.release.outputs.version }},enable=${{ github.event_name != 'schedule' }}
-            type=raw,value=latest,enable=${{ github.event_name != 'schedule' }}
+            type=semver,pattern={{version}},value=${{ steps.publish.outputs.version }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ steps.publish.outputs.version }}
+            type=semver,pattern={{major}},value=${{ steps.publish.outputs.version }}
+            type=raw,value=latest
 
       - name: Cache UV dependencies
         uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5
