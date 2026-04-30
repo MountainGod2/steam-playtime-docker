@@ -4,12 +4,121 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Steam Playtime API — Docs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" crossorigin="anonymous" />
     <style>
-      body { margin: 0; padding: 0; }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 0; font-family: sans-serif; }
+      #server-bar {
+        background: #1b1b1b;
+        color: #f0f0f0;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        flex-wrap: wrap;
+      }
+      #server-bar label { white-space: nowrap; font-weight: 600; }
+      #server-url {
+        flex: 1;
+        min-width: 200px;
+        max-width: 520px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        border: 1px solid #555;
+        font-size: 14px;
+        background: #2d2d2d;
+        color: #f0f0f0;
+        outline: none;
+      }
+      #server-url:focus { border-color: #49cc90; }
+      #apply-btn {
+        padding: 7px 16px;
+        background: #49cc90;
+        border: none;
+        border-radius: 4px;
+        color: #000;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      #apply-btn:hover { background: #3dab74; }
+      #server-hint {
+        font-size: 12px;
+        color: #888;
+        width: 100%;
+        margin-top: 2px;
+      }
     </style>
   </head>
   <body>
-    <redoc spec-url="openapi.json"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@2.5.2/bundles/redoc.standalone.js" integrity="sha384-70P5pmIdaQdVbxvjhrcTDv1uKcKqalZ3OHi7S2J+uzDl0PW8dO6L+pHOpm9EEjGJ" crossorigin="anonymous"></script>
+    <div id="server-bar">
+      <label for="server-url">Server URL:</label>
+      <input
+        id="server-url"
+        type="url"
+        placeholder="http://localhost:8000"
+        title="Enter the base URL of your running API instance"
+        aria-label="Server base URL"
+      />
+      <button id="apply-btn" onclick="applyServer()">Apply</button>
+      <span id="server-hint">
+        Enter the IP or hostname of your running instance to enable live API testing.
+        CORS must be enabled on that server.
+      </span>
+    </div>
+    <div id="swagger-ui"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin="anonymous"></script>
+    <script>
+      async function loadSpec() {
+        const resp = await fetch(new URL('/openapi.json', location.origin));
+        if (!resp.ok) throw new Error('Failed to load openapi.json');
+        return resp.json();
+      }
+
+      async function initUI(serverUrl) {
+        try {
+          const spec = await loadSpec();
+          if (serverUrl) {
+            spec.servers = [{ url: serverUrl, description: 'Custom server' }];
+          }
+          document.getElementById('swagger-ui').innerHTML = '';
+          SwaggerUIBundle({
+            spec,
+            dom_id: '#swagger-ui',
+            presets: [
+              SwaggerUIBundle.presets.apis,
+              SwaggerUIBundle.SwaggerUIStandalonePreset,
+            ],
+            layout: 'BaseLayout',
+            deepLinking: true,
+            tryItOutEnabled: true,
+          });
+        } catch (err) {
+          document.getElementById('swagger-ui').innerHTML =
+            '<div style="padding:2rem;font-family:sans-serif;color:#c00;">'
+            + '<strong>Failed to load API documentation.</strong><br>'
+            + '<span style="font-size:0.9em;color:#555;">' + (err && err.message ? err.message : 'Unknown error') + '</span><br><br>'
+            + '<button onclick="initUI(document.getElementById(\'server-url\').value.trim() || null)" '
+            + 'style="padding:6px 14px;cursor:pointer;">Retry</button>'
+            + '</div>';
+        }
+      }
+
+      function applyServer() {
+        const raw = document.getElementById('server-url').value.trim();
+        // Strip trailing slash for a clean base URL
+        const url = raw.replace(/\/+$/, '') || null;
+        initUI(url);
+      }
+
+      document.getElementById('server-url').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') applyServer();
+      });
+
+      initUI(null);
+    </script>
   </body>
 </html>

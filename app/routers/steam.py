@@ -1,8 +1,7 @@
 """Steam specific endpoints."""
 
-import httpx
+import aiohttp
 from fastapi import APIRouter, HTTPException
-from httpx import HTTPStatusError, RequestError, TimeoutException
 from pydantic import BaseModel
 
 from app.dependencies import ClientDependency, SettingsDependency, SteamSettings
@@ -25,16 +24,16 @@ class SteamStatsResponse(BaseModel):
 
 
 async def get_steam_stats(
-    client: httpx.AsyncClient, settings: SteamSettings
+    client: aiohttp.ClientSession, settings: SteamSettings
 ) -> SteamStatsResponse:
     """Fetch Steam-owned games and calculate total playtime.
 
     Args:
-        client: The HTTPX async client to use.
+        client: The aiohttp client session to use.
         settings: The Steam API settings containing user and key.
 
     Returns:
-        dict: Total games and total playtime in minutes and hours.
+        SteamStatsResponse: Total games and total playtime in minutes and hours.
 
     Raises:
         TypeError: If the Steam API response has an unexpected shape.
@@ -46,9 +45,9 @@ async def get_steam_stats(
         "include_appinfo": 1,
     }
 
-    response = await client.get(STEAM_OWNED_GAMES_URL, params=params)
-    response.raise_for_status()
-    data = response.json()
+    async with client.get(STEAM_OWNED_GAMES_URL, params=params) as response:
+        response.raise_for_status()
+        data = await response.json()
     response_data = data.get("response")
     if not isinstance(response_data, dict):
         msg = "Steam API response missing 'response' field"
@@ -77,7 +76,7 @@ async def steam_stats(
     """API endpoint to return Steam stats.
 
     Args:
-        client: The injected HTTPX async client dependency.
+        client: The injected aiohttp client session dependency.
         settings: The injected Steam API settings dependency.
 
     Returns:
@@ -89,15 +88,15 @@ async def steam_stats(
     try:
         return await get_steam_stats(client, settings)
 
-    except TimeoutException:
+    except TimeoutError:
         msg = "Steam API request timed out"
         raise HTTPException(status_code=504, detail=msg) from None
 
-    except HTTPStatusError as e:
-        msg = f"Steam API returned status {e.response.status_code}"
+    except aiohttp.ClientResponseError as e:
+        msg = f"Steam API returned status {e.status}"
         raise HTTPException(status_code=502, detail=msg) from e
 
-    except RequestError as e:
+    except aiohttp.ClientError as e:
         msg = "Failed to reach Steam API"
         raise HTTPException(status_code=502, detail=msg) from e
 
