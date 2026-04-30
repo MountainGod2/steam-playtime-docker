@@ -6,8 +6,8 @@ readme = "README.md"
 authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
 requires-python = ">=3.12"
 dependencies = [
+    "aiohttp==3.13.5",
     "fastapi[standard]==0.136.1",
-    "httpx==0.28.1",
     "pydantic-settings==2.14.0",
     "uvicorn==0.46.0",
 ]
@@ -72,11 +72,10 @@ format.quote-style = "double"
 format.indent-style = "space"
 format.skip-magic-trailing-comma = false
 format.line-ending = "auto"
-
-[tool.ruff.lint.per-file-ignores]
-"scripts/*" = [
+lint.per-file-ignores."scripts/*" = [
     "INP001", # Allow missing __init__.py in scripts
     "T201",   # Allow print statements in scripts
 ]
+
 [tool.bandit]
 exclude_dirs = [".venv"]
