@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.4.1 (2026-05-08)
+
+### Bug Fixes
+
+- **deps**: Update dependency pydantic-settings to v2.14.1
+  ([#118](https://github.com/MountainGod2/steam-playtime-docker/pull/118),
+  [`0505410`](https://github.com/MountainGod2/steam-playtime-docker/commit/050541074d91cd59041308810e03252bd1cffd0a))
+
+
 ## v1.4.0 (2026-04-30)
 
 ### Bug Fixes
