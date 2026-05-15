@@ -1541,7 +1541,7 @@ wheels = [
 
 [[package]]
 name = "steam-playtime-docker"
-version = "1.4.1"
+version = "1.4.2"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
