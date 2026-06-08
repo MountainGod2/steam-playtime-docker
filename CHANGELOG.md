@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.4.7 (2026-06-08)
+
+### Bug Fixes
+
+- **deps**: Update dependency aiohttp to v3.14.1
+  ([#142](https://github.com/MountainGod2/steam-playtime-docker/pull/142),
+  [`529feb0`](https://github.com/MountainGod2/steam-playtime-docker/commit/529feb0e0db40fd8c514ca4eac3aeefbd49d8406))
+
+
 ## v1.4.6 (2026-06-04)
 
 ### Bug Fixes
