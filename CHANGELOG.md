@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.4.13 (2026-06-28)
+
+### Bug Fixes
+
+- **deps**: Update dependency fastapi to v0.138.1
+  ([#160](https://github.com/MountainGod2/steam-playtime-docker/pull/160),
+  [`7e85d7f`](https://github.com/MountainGod2/steam-playtime-docker/commit/7e85d7f4cf42d5ac86dea56cdc6f3daf9e4bb5cb))
+
+
 ## v1.4.12 (2026-06-20)
 
 ### Bug Fixes
