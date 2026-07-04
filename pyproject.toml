@@ -21,7 +21,7 @@ dev = [
     "pyrefly==1.1.1",
     "ruff==0.15.20",
     "pre-commit==4.6.0",
-    "python-semantic-release==10.5.3",
+    "python-semantic-release==10.6.0",
     "bandit[sarif,toml]==1.9.4",
 ]
 
