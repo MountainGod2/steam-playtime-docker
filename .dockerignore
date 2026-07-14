@@ -1,0 +1,68 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# uv
+.uv-cache/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.pyrefly_cache/
+
+# Env / secrets
+.env
+.env.*
+*.pem
+*.key
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# CI / tooling configs not needed at runtime
+.pre-commit-config.yaml
+.github/
+
+# Docs
+CHANGELOG.md
+docs/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Misc project cruft
+*.log
+tmp/
+.local/
+.python-version

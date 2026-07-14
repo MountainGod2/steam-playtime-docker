@@ -9,7 +9,7 @@ import aiohttp
 from fastapi import FastAPI
 
 from .dependencies import get_settings
-from .routers import steam
+from .routers import health, steam
 from .version import __version__
 
 LOGGER = logging.getLogger(__name__)
@@ -50,4 +50,5 @@ app = FastAPI(
 )
 """FastAPI: The main FastAPI application instance."""
 
+app.include_router(health.router)
 app.include_router(steam.router)
