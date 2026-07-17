@@ -1,6 +1,5 @@
 """FastAPI application initialization and routing setup."""
 
-import logging
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -10,8 +9,6 @@ from fastapi import FastAPI
 from .dependencies import get_settings
 from .routers import health, steam
 from .version import __version__
-
-LOGGER = logging.getLogger(__name__)
 
 HTTP_TIMEOUT = aiohttp.ClientTimeout(total=5.0)
 
