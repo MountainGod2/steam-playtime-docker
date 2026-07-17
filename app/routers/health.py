@@ -4,7 +4,6 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 router = APIRouter()
-"""APIRouter: Router instance for health-related endpoints."""
 
 
 class HealthResponse(BaseModel):

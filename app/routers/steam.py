@@ -4,15 +4,13 @@ import aiohttp
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
-from app.dependencies import ClientDependency, SettingsDependency, SteamSettings
+from app.dependencies import ClientDependency, Settings, SettingsDependency
 
 router = APIRouter()
-"""APIRouter: Router instance for Steam-related endpoints."""
 
 STEAM_OWNED_GAMES_URL = (
     "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
 )
-"""str: URL for the Steam API endpoint to get owned games."""
 
 
 class SteamStatsResponse(BaseModel):
@@ -24,7 +22,7 @@ class SteamStatsResponse(BaseModel):
 
 
 async def get_steam_stats(
-    client: aiohttp.ClientSession, settings: SteamSettings
+    client: aiohttp.ClientSession, settings: Settings
 ) -> SteamStatsResponse:
     """Fetch Steam-owned games and calculate total playtime.
 
