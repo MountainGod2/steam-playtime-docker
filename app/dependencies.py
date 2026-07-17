@@ -6,11 +6,15 @@ from typing import Annotated
 import aiohttp
 from fastapi import Depends, Request
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """Application configuration loaded from environment variables."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8"
+    )
 
     api_key: str = Field(validation_alias="STEAM_API_KEY")
     user_id: str = Field(validation_alias="STEAM_ID_64")
