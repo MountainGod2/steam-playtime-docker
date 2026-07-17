@@ -26,6 +26,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     Yields:
         None: Yields control back to the application.
     """
+    # Validate required environment variables eagerly so startup fails fast.
     get_settings()
 
     app.state.client = aiohttp.ClientSession(timeout=HTTP_TIMEOUT)
