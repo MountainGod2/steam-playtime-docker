@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
 set +o pipefail
 
 UPSTREAM_BRANCH_NAME="$(git status -sb | head -n 1 | cut -d' ' -f2 | grep -E '\.{3}' | cut -d'.' -f4)"
