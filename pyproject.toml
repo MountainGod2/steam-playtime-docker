@@ -24,6 +24,7 @@ dev = [
     "python-semantic-release==10.6.1",
     "bandit[sarif,toml]==1.9.4",
 ]
+test = ["pytest==8.4.2", "pytest-cov==6.2.1", "anyio==4.9.0", "aioresponses-ng==0.8.2"]
 
 [tool.hatch]
 build.targets.wheel.packages = ["app"]
@@ -76,6 +77,27 @@ lint.per-file-ignores."scripts/*" = [
     "INP001", # Allow missing __init__.py in scripts
     "T201",   # Allow print statements in scripts
 ]
+lint.per-file-ignores."tests/*" = [
+    "S101",    # assert is the standard pytest assertion mechanism
+    "D100",    # module docstrings are optional for test modules
+    "D103",    # public function docstrings are encouraged, not required
+    "PLR2004", # magic values (status codes, counts) read fine in tests
+    "SLF001",  # tests reach into "private" state (app.state, caches)
+]
 
 [tool.bandit]
 exclude_dirs = [".venv"]
+tool.bandit.plugins.assert_used.skips = ['*_test.py', 'test_*.py']
+
+[tool.pytest.ini_options]
+addopts = "--cov=app --cov-report=term-missing --cov-report=xml --strict-markers"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
