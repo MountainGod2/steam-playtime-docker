@@ -87,7 +87,7 @@ lint.per-file-ignores."tests/*" = [
 
 [tool.bandit]
 exclude_dirs = [".venv"]
-tool.bandit.plugins.assert_used.skips = ['*_test.py', 'test_*.py']
+assert_used.skips = ["*/test_*.py", "*/*_test.py"]
 
 [tool.pytest.ini_options]
 addopts = "--cov=app --cov-report=term-missing --cov-report=xml --strict-markers"
