@@ -65,7 +65,7 @@ line-length = 80
 indent-width = 4
 lint.preview = true
 lint.select = ["ALL"]
-lint.ignore = ["COM812", "CPY001"]
+lint.ignore = ["missing-trailing-comma", "missing-copyright-notice"]
 lint.unfixable = []
 lint.pydocstyle.convention = "google"
 format.preview = true
@@ -74,15 +74,15 @@ format.indent-style = "space"
 format.skip-magic-trailing-comma = false
 format.line-ending = "auto"
 lint.per-file-ignores."scripts/*" = [
-    "INP001", # Allow missing __init__.py in scripts
-    "T201",   # Allow print statements in scripts
+    "implicit-namespace-package", # Allow missing __init__.py in scripts
+    "print",   # Allow print statements in scripts
 ]
 lint.per-file-ignores."tests/*" = [
-    "S101",    # assert is the standard pytest assertion mechanism
-    "D100",    # module docstrings are optional for test modules
-    "D103",    # public function docstrings are encouraged, not required
-    "PLR2004", # magic values (status codes, counts) read fine in tests
-    "SLF001",  # tests reach into "private" state (app.state, caches)
+    "assert",    # assert is the standard pytest assertion mechanism
+    "undocumented-public-module",    # module docstrings are optional for test modules
+    "undocumented-public-function",    # public function docstrings are encouraged, not required
+    "magic-value-comparison", # magic values (status codes, counts) read fine in tests
+    "private-member-access",  # tests reach into "private" state (app.state, caches)
 ]
 
 [tool.bandit]
