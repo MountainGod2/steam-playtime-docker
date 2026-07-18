@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
@@ -44,9 +44,10 @@ jobs:
           uv run ruff format --check app
           uv run ruff check app
           uv run pyrefly check app
+          uv run bandit -r app
 
   build:
-    needs: test
+    needs: lint
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     permissions:

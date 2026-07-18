@@ -6,14 +6,19 @@ from typing import Annotated
 import aiohttp
 from fastapi import Depends, Request
 from pydantic import Field
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class SteamSettings(BaseSettings):
-    """Configuration for Steam API access."""
+class Settings(BaseSettings):
+    """Application configuration loaded from environment variables."""
+
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8"
+    )
 
     api_key: str = Field(validation_alias="STEAM_API_KEY")
     user_id: str = Field(validation_alias="STEAM_ID_64")
+    root_path: str = Field(default="", validation_alias="ROOT_PATH")
 
 
 def get_client(request: Request) -> aiohttp.ClientSession:
@@ -29,17 +34,15 @@ def get_client(request: Request) -> aiohttp.ClientSession:
 
 
 @lru_cache
-def get_settings() -> SteamSettings:
-    """Get the Steam settings. Cached using lru_cache.
+def get_settings() -> Settings:
+    """Get application settings. Cached using lru_cache.
 
     Returns:
-        SteamSettings: The configuration settings.
+        Settings: The application configuration settings.
     """
-    return SteamSettings()  # ty:ignore[missing-argument]
+    return Settings()
 
 
 ClientDependency = Annotated[aiohttp.ClientSession, Depends(get_client)]
-"""aiohttp.ClientSession: Dependency for the aiohttp client session."""
 
-SettingsDependency = Annotated[SteamSettings, Depends(get_settings)]
-"""SteamSettings: Dependency for the Steam settings."""
+SettingsDependency = Annotated[Settings, Depends(get_settings)]
