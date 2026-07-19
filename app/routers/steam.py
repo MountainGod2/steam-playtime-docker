@@ -69,7 +69,6 @@ async def get_steam_stats(
         "key": settings.api_key,
         "steamid": settings.user_id,
         "format": "json",
-        "include_appinfo": 1,
     }
 
     async with client.get(STEAM_OWNED_GAMES_URL, params=params) as response:
