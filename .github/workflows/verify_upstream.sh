@@ -1,31 +1,28 @@
 #!/usr/bin/env bash
 
-set -e
-set +o pipefail
+set -euo pipefail
 
-UPSTREAM_BRANCH_NAME="$(git status -sb | head -n 1 | cut -d' ' -f2 | grep -E '\.{3}' | cut -d'.' -f4)"
-printf '%s\n' "Upstream branch name: $UPSTREAM_BRANCH_NAME"
-
-set -o pipefail
-
-if [ -z "$UPSTREAM_BRANCH_NAME" ]; then
-    printf >&2 '%s\n' "::error::Unable to determine upstream branch name!"
+if ! upstream_branch="$(
+    git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}'
+)"; then
+    printf '%s\n' "::error::Unable to determine upstream branch name!" >&2
     exit 1
 fi
 
-git fetch "${UPSTREAM_BRANCH_NAME%%/*}"
+remote_name="${upstream_branch%%/*}"
 
-if ! UPSTREAM_SHA="$(git rev-parse "$UPSTREAM_BRANCH_NAME")"; then
-    printf >&2 '%s\n' "::error::Unable to determine upstream branch sha!"
+git fetch "$remote_name"
+
+upstream_sha="$(git rev-parse "$upstream_branch")"
+head_sha="$(git rev-parse HEAD)"
+
+if [[ "$head_sha" != "$upstream_sha" ]]; then
+    printf '%s\n' \
+        "[HEAD SHA] $head_sha != $upstream_sha [UPSTREAM SHA]" >&2
+    printf '%s\n' \
+        "::error::Upstream has changed, aborting release..." >&2
     exit 1
 fi
 
-HEAD_SHA="$(git rev-parse HEAD)"
-
-if [ "$HEAD_SHA" != "$UPSTREAM_SHA" ]; then
-    printf >&2 '%s\n' "[HEAD SHA] $HEAD_SHA != $UPSTREAM_SHA [UPSTREAM SHA]"
-    printf >&2 '%s\n' "::error::Upstream has changed, aborting release..."
-    exit 1
-fi
-
-printf '%s\n' "Verified upstream branch has not changed, continuing with release..."
+printf '%s\n' \
+    "Verified upstream branch has not changed, continuing with release..."
