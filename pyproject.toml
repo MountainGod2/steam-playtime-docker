@@ -81,6 +81,7 @@ lint.per-file-ignores."tests/*" = [
 ]
 
 [tool.bandit]
+targets = ["app"]
 exclude_dirs = [".venv"]
 assert_used.skips = ["*/test_*.py", "*/*_test.py"]
 
@@ -89,7 +90,7 @@ ini_options.addopts = [
     "--cov=app",
     "--cov-report=term-missing",
     "--cov-report=xml",
-    "--cov-fail-under=80",
+    "--cov-fail-under=90",
     "--strict-config",
     "--strict-markers",
 ]
@@ -101,3 +102,8 @@ run.branch = true
 report.show_missing = true
 report.skip_covered = true
 report.exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+
+[tool.pyrefly]
+search_path = [
+    "app"
+]

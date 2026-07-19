@@ -1,12 +1,12 @@
 """FastAPI application initialization and routing setup."""
 
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Callable
 from contextlib import asynccontextmanager
 
 import aiohttp
 from fastapi import FastAPI
 
-from .dependencies import Settings, get_settings
+from .dependencies import RootPathSettings, Settings, get_settings
 from .routers import health, steam
 from .version import __version__
 
@@ -15,16 +15,16 @@ HTTP_TIMEOUT = aiohttp.ClientTimeout(total=5.0)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    """Initialize and teardown app resources.
+    """Initialize and tear down application resources.
 
     Args:
-        app: The incoming FastAPI application instance.
+        app: The FastAPI application instance.
 
     Yields:
-        None: Yields control back to the application.
+        Control to the running application.
     """
-    # Validate required environment variables eagerly so startup fails fast.
-    get_settings()
+    if not hasattr(app.state, "settings"):
+        app.state.settings = get_settings()
 
     app.state.client = aiohttp.ClientSession(timeout=HTTP_TIMEOUT)
 
@@ -34,23 +34,51 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         await app.state.client.close()
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
-    """Create and configure the FastAPI application instance.
+def _settings_provider(settings: Settings) -> Callable[[], Settings]:
+    """Create a dependency provider for supplied settings.
 
     Args:
-        settings: Optional settings instance.
+        settings: The settings instance to provide.
 
     Returns:
-        FastAPI: The configured FastAPI application instance.
+        A callable that returns the supplied settings.
     """
-    resolved_settings = settings or get_settings()
+
+    def provide_settings() -> Settings:
+        return settings
+
+    return provide_settings
+
+
+def create_app(settings: Settings | None = None) -> FastAPI:
+    """Create and configure the FastAPI application.
+
+    Args:
+        settings: Optional complete settings instance, primarily for embedding
+            or tests. Required Steam credentials remain deferred until startup
+            when this argument is omitted.
+
+    Returns:
+        The configured FastAPI application.
+    """
+    root_path = (
+        settings.root_path
+        if settings is not None
+        else RootPathSettings().root_path
+    )
 
     application = FastAPI(
         title="Steam Playtime API",
         version=__version__,
         lifespan=lifespan,
-        root_path=resolved_settings.root_path,
+        root_path=root_path,
     )
+
+    if settings is not None:
+        application.state.settings = settings
+        application.dependency_overrides[get_settings] = _settings_provider(
+            settings
+        )
 
     application.include_router(health.router)
     application.include_router(steam.router)

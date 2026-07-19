@@ -72,11 +72,13 @@ async def get_steam_stats(
     }
 
     async with client.get(STEAM_OWNED_GAMES_URL, params=params) as response:
+        response.raise_for_status()
+
         try:
             payload = SteamOwnedGamesResponse.model_validate(
                 await response.json()
             )
-        except ValidationError as exc:
+        except (aiohttp.ContentTypeError, ValidationError, ValueError) as exc:
             msg = "Steam API returned an invalid response"
             raise InvalidSteamResponseError(msg) from exc
 
@@ -122,6 +124,5 @@ async def steam_stats(
         msg = "Failed to reach Steam API"
         raise HTTPException(status_code=502, detail=msg) from e
 
-    except TypeError as e:
-        msg = f"Invalid Steam API response: {e}"
-        raise HTTPException(status_code=502, detail=msg) from e
+    except InvalidSteamResponseError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
