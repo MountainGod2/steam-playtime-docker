@@ -5,29 +5,20 @@ from typing import Annotated
 
 import aiohttp
 from fastapi import Depends, Request
-from pydantic import Field
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class _EnvFileSettings(BaseSettings):
-    """Shared .env-file configuration for the settings models."""
+class Settings(BaseSettings):
+    """Application configuration loaded from environment variables."""
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"
     )
 
-
-class RootPathSettings(_EnvFileSettings):
-    """Bootstrap configuration needed before the app object exists."""
-
+    steam_api_key: SecretStr = Field(validation_alias="STEAM_API_KEY")
+    steam_id_64: str = Field(validation_alias="STEAM_ID_64")
     root_path: str = Field(default="", validation_alias="ROOT_PATH")
-
-
-class Settings(_EnvFileSettings):
-    """Steam API configuration loaded from environment variables."""
-
-    api_key: str = Field(validation_alias="STEAM_API_KEY")
-    user_id: str = Field(validation_alias="STEAM_ID_64")
 
 
 def get_client(request: Request) -> aiohttp.ClientSession:

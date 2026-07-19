@@ -66,8 +66,8 @@ async def get_steam_stats(
         InvalidSteamResponseError: If the Steam API response is invalid.
     """
     params = {
-        "key": settings.api_key,
-        "steamid": settings.user_id,
+        "key": settings.steam_api_key.get_secret_value(),
+        "steamid": settings.steam_id_64,
         "format": "json",
     }
 
