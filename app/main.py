@@ -6,7 +6,7 @@ from contextlib import asynccontextmanager
 import aiohttp
 from fastapi import FastAPI
 
-from .dependencies import get_settings
+from .dependencies import RootPathSettings, get_settings
 from .routers import health, steam
 from .version import __version__
 
@@ -34,13 +34,11 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         await app.state.client.close()
 
 
-settings = get_settings()
-
 app = FastAPI(
     title="Steam Playtime API",
     version=__version__,
     lifespan=lifespan,
-    root_path=settings.root_path,
+    root_path=RootPathSettings().root_path,
 )
 
 app.include_router(health.router)

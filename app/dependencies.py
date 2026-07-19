@@ -9,16 +9,25 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class Settings(BaseSettings):
-    """Application configuration loaded from environment variables."""
+class _EnvFileSettings(BaseSettings):
+    """Shared .env-file configuration for the settings models."""
 
     model_config = SettingsConfigDict(
-        env_file=".env", env_file_encoding="utf-8"
+        env_file=".env", env_file_encoding="utf-8", extra="ignore"
     )
+
+
+class RootPathSettings(_EnvFileSettings):
+    """Bootstrap configuration needed before the app object exists."""
+
+    root_path: str = Field(default="", validation_alias="ROOT_PATH")
+
+
+class Settings(_EnvFileSettings):
+    """Steam API configuration loaded from environment variables."""
 
     api_key: str = Field(validation_alias="STEAM_API_KEY")
     user_id: str = Field(validation_alias="STEAM_ID_64")
-    root_path: str = Field(default="", validation_alias="ROOT_PATH")
 
 
 def get_client(request: Request) -> aiohttp.ClientSession:
