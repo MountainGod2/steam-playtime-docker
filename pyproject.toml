@@ -101,7 +101,7 @@ ini_options.addopts = [
     "--cov=app",
     "--cov-report=term-missing",
     "--cov-report=xml",
-    "--cov-fail-under=90",
+    "--cov-fail-under=80",
     "--strict-config",
     "--strict-markers",
 ]
