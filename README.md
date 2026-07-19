@@ -22,9 +22,7 @@ docker run \
   --rm \
   -it \
   -p 8000:3000 \
-  -e STEAM_API_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" \
-  -e STEAM_ID_64="XXXXXXXXXXXXXXXXX" \
-  --env-file .env \ # Optional
+  --env-file .env \
   mountaingod2/steam-playtime-docker:latest
 ```
 
