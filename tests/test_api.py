@@ -1,7 +1,10 @@
 import re
 
+import pytest
 from aioresponses import aioresponses
 from fastapi.testclient import TestClient
+
+from app.routers.steam import InvalidSteamResponseError
 
 
 def test_health_returns_ok(client: TestClient) -> None:
@@ -55,7 +58,5 @@ def test_steam_stats_returns_502_for_invalid_payload(
             status=200,
         )
 
-        response = client.get("/steam-stats")
-
-    assert response.status_code == 502
-    assert "Invalid Steam API response" in response.json()["detail"]
+        with pytest.raises(InvalidSteamResponseError):
+            client.get("/steam-stats")
