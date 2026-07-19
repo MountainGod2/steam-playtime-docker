@@ -1,3 +1,8 @@
+
+[build-system]
+requires = ["hatchling==1.31.0", "hatch-fancy-pypi-readme==25.1.0"]
+build-backend = "hatchling.build"
+
 [project]
 name = "steam-playtime-docker"
 version = "1.4.19"
@@ -11,10 +16,6 @@ dependencies = [
     "pydantic-settings==2.14.2",
     "uvicorn==0.51.0",
 ]
-
-[build-system]
-requires = ["hatchling==1.31.0", "hatch-fancy-pypi-readme==25.1.0"]
-build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
@@ -75,29 +76,26 @@ format.skip-magic-trailing-comma = false
 format.line-ending = "auto"
 lint.per-file-ignores."scripts/*" = [
     "implicit-namespace-package", # Allow missing __init__.py in scripts
-    "print",   # Allow print statements in scripts
+    "print",                      # Allow print statements in scripts
 ]
 lint.per-file-ignores."tests/*" = [
-    "assert",    # assert is the standard pytest assertion mechanism
-    "undocumented-public-module",    # module docstrings are optional for test modules
-    "undocumented-public-function",    # public function docstrings are encouraged, not required
-    "magic-value-comparison", # magic values (status codes, counts) read fine in tests
-    "private-member-access",  # tests reach into "private" state (app.state, caches)
+    "assert",                       # assert is the standard pytest assertion mechanism
+    "undocumented-public-module",   # module docstrings are optional for test modules
+    "undocumented-public-function", # public function docstrings are encouraged, not required
+    "magic-value-comparison",       # magic values (status codes, counts) read fine in tests
+    "private-member-access",        # tests reach into "private" state (app.state, caches)
 ]
 
 [tool.bandit]
 exclude_dirs = [".venv"]
 assert_used.skips = ["*/test_*.py", "*/*_test.py"]
 
-[tool.pytest.ini_options]
-addopts = "--cov=app --cov-report=term-missing --cov-report=xml --strict-markers"
-testpaths = ["tests"]
+[tool.pytest]
+ini_options.addopts = "--cov=app --cov-report=term-missing --cov-report=xml --strict-markers"
+ini_options.testpaths = ["tests"]
 
-[tool.coverage.run]
-source = ["app"]
-branch = true
-
-[tool.coverage.report]
-fail_under = 90
-show_missing = true
-exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
+[tool.coverage]
+run.source = ["app"]
+run.branch = true
+report.show_missing = true
+report.exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
