@@ -20,10 +20,9 @@ Required variables:
 ```bash
 docker run \
   --rm \
-  -it \
   -p 8000:3000 \
   --env-file .env \
-  mountaingod2/steam-playtime-docker:latest
+  ghcr.io/mountaingod2/steam-playtime-docker:latest
 ```
 
 ## Endpoint
