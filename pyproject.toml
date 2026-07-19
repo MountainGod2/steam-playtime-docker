@@ -1,6 +1,6 @@
 
 [build-system]
-requires = ["hatchling==1.31.0", "hatch-fancy-pypi-readme==25.1.0"]
+requires = ["hatchling==1.31.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -12,7 +12,7 @@ authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
 requires-python = ">=3.12"
 dependencies = [
     "aiohttp==3.14.1",
-    "fastapi[standard]==0.139.2",
+    "fastapi==0.139.2",
     "pydantic-settings==2.14.2",
     "uvicorn==0.51.0",
 ]
@@ -25,22 +25,10 @@ dev = [
     "python-semantic-release==10.6.1",
     "bandit[sarif,toml]==1.9.4",
 ]
-test = [
-    "pytest==9.1.1",
-    "pytest-cov==7.1.0",
-    "anyio==4.14.2",
-    "aioresponses-ng==0.8.2",
-    "httpx2==2.7.0",
-]
+test = ["pytest==8.4.2", "pytest-cov==6.2.1", "aioresponses-ng==0.8.2", "httpx2==2.7.0"]
 
 [tool.hatch]
 build.targets.wheel.packages = ["app"]
-metadata.hooks.fancy-pypi-readme.content-type = "text/markdown"
-metadata.hooks.fancy-pypi-readme.fragments = [{ path = "README.md" }]
-metadata.hooks.fancy-pypi-readme.substitutions = [
-    # Replace relative links in the README with absolute links to the GitHub repository
-    { pattern = '\[(.+?)\]\(((?!https?://)\.?/?(\S+?))\)', replacement = '[\1](https://github.com/MountainGod2/steam-playtime-docker/tree/main/\g<3>)' },
-]
 
 [tool.semantic_release]
 version_toml = ["pyproject.toml:project.version"]
