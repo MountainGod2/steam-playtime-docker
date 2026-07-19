@@ -27,7 +27,7 @@ dev = [
 ]
 test = [
     "pytest==9.1.1",
-    "pytest-cov==6.3.0",
+    "pytest-cov==7.1.0",
     "anyio==4.14.2",
     "aioresponses-ng==0.8.2",
     "httpx2==2.7.0",
