@@ -67,6 +67,7 @@ def test_steam_stats_returns_zero_for_empty_library(
     "payload",
     [
         {"unexpected": {}},
+        {"response": {}},
         {"response": {"games": None}},
         {"response": {"games": [None]}},
         {"response": {"games": [{"playtime_forever": -1}]}},

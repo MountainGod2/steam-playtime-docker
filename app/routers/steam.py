@@ -18,26 +18,26 @@ STEAM_OWNED_GAMES_URL = (
 )
 
 
-class SteamGame(BaseModel):
-    """Relevant fields from a Steam-owned game."""
+class SteamBaseModel(BaseModel):
+    """Shared base model for Steam API payloads."""
 
     model_config = ConfigDict(extra="ignore")
+
+
+class SteamGame(SteamBaseModel):
+    """Relevant fields from a Steam-owned game."""
 
     playtime_forever: int = Field(default=0, ge=0)
 
 
-class SteamOwnedGamesData(BaseModel):
+class SteamOwnedGamesData(SteamBaseModel):
     """Owned-games payload nested under the Steam response."""
 
-    model_config = ConfigDict(extra="ignore")
-
-    games: list[SteamGame] = Field(default_factory=list)
+    games: list[SteamGame]
 
 
-class SteamOwnedGamesResponse(BaseModel):
+class SteamOwnedGamesResponse(SteamBaseModel):
     """Response returned by Steam's GetOwnedGames endpoint."""
-
-    model_config = ConfigDict(extra="ignore")
 
     response: SteamOwnedGamesData
 
