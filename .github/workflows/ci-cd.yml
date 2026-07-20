@@ -180,8 +180,10 @@ jobs:
       - id: publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERIFY_UPSTREAM_REMOTE: origin
+          VERIFY_UPSTREAM_BRANCH: ${{ github.ref_name }}
         run: |
-          bash .github/workflows/verify_upstream.sh
+          bash .github/workflows/verify_upstream.sh "$VERIFY_UPSTREAM_REMOTE" "$VERIFY_UPSTREAM_BRANCH"
           uv run semantic-release -v --strict version --skip-build
           uv run semantic-release publish
 
