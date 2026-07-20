@@ -188,13 +188,6 @@ jobs:
           uv run semantic-release publish
 
       - if: steps.publish.outputs.released == 'true'
-        run: |
-          printf "version=%s\ntag=%s\n" "${STEPS_PUBLISH_OUTPUTS_VERSION}" "${STEPS_PUBLISH_OUTPUTS_TAG}" > release-info.txt
-        env:
-          STEPS_PUBLISH_OUTPUTS_VERSION: ${{ steps.publish.outputs.version }}
-          STEPS_PUBLISH_OUTPUTS_TAG: ${{ steps.publish.outputs.tag }}
-
-      - if: steps.publish.outputs.released == 'true'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ steps.publish.outputs.tag }}
