@@ -2,15 +2,44 @@
 
 import aiohttp
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from app.dependencies import ClientDependency, Settings, SettingsDependency
+
+
+class InvalidSteamResponseError(Exception):
+    """Custom exception for invalid Steam API responses."""
+
 
 router = APIRouter()
 
 STEAM_OWNED_GAMES_URL = (
     "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
 )
+
+
+class SteamBaseModel(BaseModel):
+    """Shared base model for Steam API payloads."""
+
+    model_config = ConfigDict(extra="ignore")
+
+
+class SteamGame(SteamBaseModel):
+    """Relevant fields from a Steam-owned game."""
+
+    playtime_forever: int = Field(default=0, ge=0)
+
+
+class SteamOwnedGamesData(SteamBaseModel):
+    """Owned-games payload nested under the Steam response."""
+
+    games: list[SteamGame]
+
+
+class SteamOwnedGamesResponse(SteamBaseModel):
+    """Response returned by Steam's GetOwnedGames endpoint."""
+
+    response: SteamOwnedGamesData
 
 
 class SteamStatsResponse(BaseModel):
@@ -34,34 +63,31 @@ async def get_steam_stats(
         SteamStatsResponse: Total games and total playtime in minutes and hours.
 
     Raises:
-        TypeError: If the Steam API response has an unexpected shape.
+        InvalidSteamResponseError: If the Steam API response is invalid.
     """
     params = {
-        "key": settings.api_key,
-        "steamid": settings.user_id,
+        "key": settings.steam_api_key.get_secret_value(),
+        "steamid": settings.steam_id_64,
         "format": "json",
-        "include_appinfo": 1,
     }
 
     async with client.get(STEAM_OWNED_GAMES_URL, params=params) as response:
         response.raise_for_status()
-        data = await response.json()
-    response_data = data.get("response")
-    if not isinstance(response_data, dict):
-        msg = "Steam API response missing 'response' field"
-        raise TypeError(msg)
 
-    games = response_data.get("games", [])
-    if not isinstance(games, list):
-        msg = "Steam API response 'games' field is not a list"
-        raise TypeError(msg)
+        try:
+            payload = SteamOwnedGamesResponse.model_validate(
+                await response.json()
+            )
+        except (aiohttp.ContentTypeError, ValidationError, ValueError) as exc:
+            msg = "Steam API returned an invalid response"
+            raise InvalidSteamResponseError(msg) from exc
 
-    total_playtime_minutes = sum(
-        game.get("playtime_forever", 0) for game in games
-    )
+        total_playtime_minutes = sum(
+            game.playtime_forever for game in payload.response.games
+        )
 
     return SteamStatsResponse(
-        total_games=len(games),
+        total_games=len(payload.response.games),
         total_playtime_forever_minutes=total_playtime_minutes,
         total_playtime_forever_hours=round(total_playtime_minutes / 60, 1),
     )
@@ -98,6 +124,5 @@ async def steam_stats(
         msg = "Failed to reach Steam API"
         raise HTTPException(status_code=502, detail=msg) from e
 
-    except TypeError as e:
-        msg = f"Invalid Steam API response: {e}"
-        raise HTTPException(status_code=502, detail=msg) from e
+    except InvalidSteamResponseError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc

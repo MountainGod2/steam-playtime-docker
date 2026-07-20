@@ -3,8 +3,6 @@
 from importlib.metadata import PackageNotFoundError, version
 
 try:
-    __version__: str = version("steam-playtime-docker")
-    """str: The current version of the package."""
+    __version__ = version("steam-playtime-docker")
 except PackageNotFoundError:
-    __version__: str = "0.0.0"
-    """str: Default version set to '0.0.0'."""
+    __version__ = "0.0.0+unknown"

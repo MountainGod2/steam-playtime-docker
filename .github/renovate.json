@@ -1,11 +1,21 @@
 {
-  "extends": ["config:best-practices"],
-  "automerge": true,
-  "automergeType": "pr",
+  "extends": [
+    "config:best-practices"
+  ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "minor", "digest"],
-      "automerge": true
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "minimumReleaseAge": "8 days"
     }
-  ]
+  ],
+  "pre-commit": {
+    "enabled": true
+  }
 }
