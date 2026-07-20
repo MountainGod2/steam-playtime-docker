@@ -45,6 +45,7 @@ def _settings_provider(settings: Settings) -> Callable[[], Settings]:
     """
 
     def provide_settings() -> Settings:
+        """Return the injected settings instance for dependency override."""
         return settings
 
     return provide_settings
