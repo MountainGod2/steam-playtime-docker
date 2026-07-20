@@ -13,6 +13,7 @@ STEAM_URL_PATTERN = re.compile(
 
 
 def test_health_returns_ok(client: TestClient) -> None:
+    """Returns 200 and an ok status payload for the health endpoint."""
     response = client.get("/health")
 
     assert response.status_code == 200
@@ -20,6 +21,7 @@ def test_health_returns_ok(client: TestClient) -> None:
 
 
 def test_steam_stats_returns_aggregated_totals(client: TestClient) -> None:
+    """Aggregates playtime values and returns totals for a valid payload."""
     payload = {
         "response": {
             "games": [
@@ -46,6 +48,7 @@ def test_steam_stats_returns_aggregated_totals(client: TestClient) -> None:
 def test_steam_stats_returns_zero_for_empty_library(
     client: TestClient,
 ) -> None:
+    """Returns zero totals when the Steam library has no games."""
     with aioresponses() as mocked:
         mocked.get(
             STEAM_URL_PATTERN,
@@ -78,6 +81,7 @@ def test_steam_stats_returns_502_for_invalid_payload(
     client: TestClient,
     payload: object,
 ) -> None:
+    """Maps structurally invalid Steam payloads to a 502 response."""
     with aioresponses() as mocked:
         mocked.get(STEAM_URL_PATTERN, payload=payload, status=200)
 
@@ -92,6 +96,7 @@ def test_steam_stats_returns_502_for_invalid_payload(
 def test_steam_stats_returns_502_for_invalid_json(
     client: TestClient,
 ) -> None:
+    """Returns 502 when upstream responds with invalid JSON."""
     with aioresponses() as mocked:
         mocked.get(
             STEAM_URL_PATTERN,
@@ -111,6 +116,7 @@ def test_steam_stats_returns_502_for_invalid_json(
 def test_steam_stats_returns_502_for_upstream_http_error(
     client: TestClient,
 ) -> None:
+    """Converts upstream non-2xx HTTP status codes into a 502 response."""
     with aioresponses() as mocked:
         mocked.get(STEAM_URL_PATTERN, status=503)
 
@@ -121,6 +127,7 @@ def test_steam_stats_returns_502_for_upstream_http_error(
 
 
 def test_steam_stats_returns_504_for_timeout(client: TestClient) -> None:
+    """Returns 504 when the Steam API request times out."""
     with aioresponses() as mocked:
         mocked.get(STEAM_URL_PATTERN, exception=TimeoutError())
 
@@ -133,6 +140,7 @@ def test_steam_stats_returns_504_for_timeout(client: TestClient) -> None:
 def test_steam_stats_returns_502_for_connection_error(
     client: TestClient,
 ) -> None:
+    """Returns 502 when the Steam API cannot be reached."""
     with aioresponses() as mocked:
         mocked.get(
             STEAM_URL_PATTERN,
