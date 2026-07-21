@@ -1,22 +1,18 @@
 # Steam Playtime API
 
-FastAPI service that aggregates total playtime from the Steam Web API.
+FastAPI service that wraps the Steam Web API and returns aggregate playtime stats as JSON.
 
 ## Configuration
-
-Copy the example file and set the required values:
 
 ```bash
 cp .env.example .env
 ```
 
-- `STEAM_API_KEY`: Steam Web API key.
-- `STEAM_ID_64`: SteamID64 of the account to query.
-- `ROOT_PATH`: Optional external path prefix when serving behind a reverse
-  proxy, such as `/proxy/8000/`.
+Set:
 
-The queried Steam profile must expose its game details for Steam to return the
-owned-games data.
+- `STEAM_API_KEY` — Steam Web API key
+- `STEAM_ID_64` — SteamID64 to query
+- `ROOT_PATH` — optional, set only if running behind a reverse proxy at a sub-path (e.g. `/proxy/8000/`)
 
 ## Run
 
@@ -30,12 +26,12 @@ docker run \
 
 ## Endpoints
 
-- `GET /health`: Process liveness check.
-- `GET /steam-stats`: Total owned games and lifetime playtime.
-- `GET /docs`: Interactive Swagger UI.
-- `GET /redoc`: ReDoc API documentation.
+- `GET /health` — liveness check
+- `GET /steam-stats` — total games + total playtime
+- `GET /docs` — Swagger UI
+- `GET /redoc` — ReDoc
 
-Example response from `GET /steam-stats`:
+`GET /steam-stats` response:
 
 ```json
 {
@@ -45,5 +41,4 @@ Example response from `GET /steam-stats`:
 }
 ```
 
-Steam request timeouts return HTTP `504`. Upstream connection, HTTP, and
-response-validation failures return HTTP `502`.
+Timeouts from Steam return `504`. Connection errors, bad upstream status codes, or malformed responses return `502`.
