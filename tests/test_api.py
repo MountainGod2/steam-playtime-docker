@@ -1,11 +1,14 @@
 """API endpoint tests."""
 
+import logging
 import re
 
 import aiohttp
 import pytest
 from aioresponses import aioresponses
 from fastapi.testclient import TestClient
+
+from app.main import app
 
 STEAM_URL_PATTERN = re.compile(r"https://api\.steampowered\.com/.*/GetOwnedGames/v0001/.*")
 
@@ -145,3 +148,25 @@ def test_steam_stats_returns_502_for_connection_error(
 
     assert response.status_code == 502
     assert response.json() == {"detail": "Failed to reach Steam API"}
+
+
+def test_unhandled_exception_returns_json_500_and_is_logged(
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    """Returns a consistent JSON 500 response and logs unexpected errors."""
+
+    def _raise_unexpected_error(*_args: object, **_kwargs: object) -> None:
+        msg = "boom"
+        raise KeyError(msg)
+
+    monkeypatch.setattr("app.routers.steam.get_steam_stats", _raise_unexpected_error)
+    caplog.set_level(logging.ERROR, logger="app.error_handlers")
+
+    with TestClient(app, raise_server_exceptions=False) as test_client:
+        response = test_client.get("/steam-stats")
+
+    assert response.status_code == 500
+    assert response.json() == {"detail": "Internal Server Error"}
+    assert "Unhandled exception while processing request" in caplog.text
+    assert "KeyError: 'boom'" in caplog.text
