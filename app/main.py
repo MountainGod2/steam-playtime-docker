@@ -6,7 +6,8 @@ from contextlib import asynccontextmanager
 import aiohttp
 from fastapi import FastAPI
 
-from app.dependencies import RootPathSettings, get_settings
+from app.config import RootPathSettings
+from app.dependencies import get_settings
 from app.error_handlers import register_exception_handlers
 from app.routers import health, steam
 from app.version import __version__

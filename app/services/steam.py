@@ -3,7 +3,7 @@
 import aiohttp
 from pydantic import ValidationError
 
-from app.dependencies import Settings
+from app.config import Settings
 from app.exceptions import AppHTTPError
 from app.schemas.steam import SteamOwnedGamesResponse, SteamStatsResponse
 
