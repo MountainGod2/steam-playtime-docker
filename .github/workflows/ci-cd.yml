@@ -37,7 +37,7 @@ jobs:
           enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
-      - run: uv sync --all-groups --frozen
+      - run: uv sync --all-groups --locked
 
       - run: |
           uv run ruff format --check .
@@ -63,7 +63,7 @@ jobs:
           enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
-      - run: uv sync --all-groups --frozen
+      - run: uv sync --all-groups --locked
 
       - run: uv run pytest
 
@@ -89,7 +89,7 @@ jobs:
           enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
-      - run: uv sync --all-groups --frozen
+      - run: uv sync --all-groups --locked
 
       - id: version
         env:
@@ -145,7 +145,7 @@ jobs:
           enable-cache: false
           cache-suffix: ${{ hashFiles('uv.lock') }}
 
-      - run: uv sync --all-groups --frozen
+      - run: uv sync --all-groups --locked
 
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
