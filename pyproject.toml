@@ -55,7 +55,7 @@ changelog.exclude_commit_patterns = [
 
 [tool.ruff]
 target-version = "py312"
-line-length = 80
+line-length = 100
 indent-width = 4
 lint.preview = true
 lint.select = ["ALL"]

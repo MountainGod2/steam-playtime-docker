@@ -7,6 +7,7 @@ import aiohttp
 from fastapi import FastAPI
 
 from .dependencies import RootPathSettings, get_settings
+from .error_handlers import register_exception_handlers
 from .routers import health, steam
 from .version import __version__
 
@@ -45,6 +46,7 @@ def create_app() -> FastAPI:
         root_path=RootPathSettings().root_path,
     )
 
+    register_exception_handlers(application)
     application.include_router(health.router)
     application.include_router(steam.router)
 

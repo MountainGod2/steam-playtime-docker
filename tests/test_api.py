@@ -7,9 +7,7 @@ import pytest
 from aioresponses import aioresponses
 from fastapi.testclient import TestClient
 
-STEAM_URL_PATTERN = re.compile(
-    r"https://api\.steampowered\.com/.*/GetOwnedGames/v0001/.*"
-)
+STEAM_URL_PATTERN = re.compile(r"https://api\.steampowered\.com/.*/GetOwnedGames/v0001/.*")
 
 
 def test_health_returns_ok(client: TestClient) -> None:
@@ -88,9 +86,7 @@ def test_steam_stats_returns_502_for_invalid_payload(
         response = client.get("/steam-stats")
 
     assert response.status_code == 502
-    assert response.json() == {
-        "detail": "Steam API returned an invalid response"
-    }
+    assert response.json() == {"detail": "Steam API returned an invalid response"}
 
 
 def test_steam_stats_returns_502_for_invalid_json(
@@ -108,9 +104,7 @@ def test_steam_stats_returns_502_for_invalid_json(
         response = client.get("/steam-stats")
 
     assert response.status_code == 502
-    assert response.json() == {
-        "detail": "Steam API returned an invalid response"
-    }
+    assert response.json() == {"detail": "Steam API returned an invalid response"}
 
 
 def test_steam_stats_returns_502_for_upstream_http_error(
