@@ -6,10 +6,10 @@ from contextlib import asynccontextmanager
 import aiohttp
 from fastapi import FastAPI
 
-from .dependencies import RootPathSettings, get_settings
-from .error_handlers import register_exception_handlers
-from .routers import health, steam
-from .version import __version__
+from app.dependencies import RootPathSettings, get_settings
+from app.error_handlers import register_exception_handlers
+from app.routers import health, steam
+from app.version import __version__
 
 HTTP_TIMEOUT = aiohttp.ClientTimeout(total=5.0)
 
