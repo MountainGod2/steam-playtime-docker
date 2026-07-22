@@ -88,7 +88,6 @@ assert_used.skips = ["*/test_*.py", "*/*_test.py"]
 ini_options.addopts = [
     "--cov=app",
     "--cov-report=term-missing",
-    "--cov-report=xml",
     "--cov-fail-under=90",
     "--strict-config",
     "--strict-markers",
