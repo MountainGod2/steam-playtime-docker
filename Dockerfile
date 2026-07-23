@@ -23,7 +23,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 FROM python:3.14-slim@sha256:cea0e6040540fb2b965b6e7fb5ffa00871e632eef63719f0ea54bca189ce14a6
 
 RUN groupadd --system --gid 999 nonroot \
- && useradd --system --gid 999 --uid 999 --create-home nonroot
+ && useradd --system --gid 999 --uid 999 --create-home nonroot \
+ && mkdir -p /app \
+ && chown nonroot:nonroot /app
 
 COPY --from=builder --chown=nonroot:nonroot /app/.venv /app/.venv
 
@@ -37,6 +39,6 @@ WORKDIR /app
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:3000/health', timeout=2).status == 200 else 1)"
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:3000/health', timeout=2)" || exit 1
 
-CMD [ "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000", "--log-level", "info", "--no-access-log" ]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000", "--log-level", "error"]
