@@ -2,6 +2,7 @@
   "extends": [
     "config:best-practices"
   ],
+  "automerge": true,
   "packageRules": [
     {
       "description": "Automerge non-major updates",
