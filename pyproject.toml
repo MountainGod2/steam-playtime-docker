@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "steam-playtime-docker"
-version = "1.4.22"
+version = "1.4.23"
 description = "Display playtime for Steam library."
 readme = "README.md"
 authors = [{ name = "MountainGod2", email = "admin@reid.ca" }]
