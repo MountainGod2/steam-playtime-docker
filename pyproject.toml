@@ -22,7 +22,7 @@ dev = [
     "pyrefly==1.2.0",
     "ruff==0.16.4",
     "pre-commit==4.6.2",
-    "python-semantic-release==10.6.1",
+    "python-semantic-release==10.6.2",
     "bandit[sarif,toml]==1.9.4",
 ]
 test = ["pytest==9.1.1", "pytest-cov==7.1.0", "aioresponses-ng==0.8.2", "httpx2==2.12.0"]
