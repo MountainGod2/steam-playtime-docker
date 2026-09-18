@@ -79,6 +79,9 @@ lint.per-file-ignores."tests/*" = [
     "magic-value-comparison",       # magic values (status codes, counts) read fine in tests
     "private-member-access",        # tests reach into "private" state (app.state, caches)
 ]
+lint.per-file-ignores."!**/conftest.py" = [
+    "pytest-fixture-autouse"        # allow autouse fixtures in conftest.py
+]
 
 [tool.bandit]
 targets = ["app"]
