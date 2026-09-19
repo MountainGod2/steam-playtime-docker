@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     strategy:
@@ -46,7 +46,7 @@ jobs:
           uv run bandit -c pyproject.toml -r .
 
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     strategy:
@@ -68,7 +68,7 @@ jobs:
       - run: uv run pytest
 
   docs-check:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     steps:
@@ -89,7 +89,7 @@ jobs:
   build:
     needs: [lint, test, docs-check]
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
     outputs:
@@ -134,7 +134,7 @@ jobs:
   release:
     needs: build
     if: github.ref == 'refs/heads/main' && needs.build.outputs.released == 'true'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     concurrency:
       group: ${{ github.workflow }}-release-${{ github.ref_name }}
       cancel-in-progress: false
