@@ -3,9 +3,11 @@
     "config:best-practices"
   ],
   "platformAutomerge": true,
+  "internalChecksFilter": "strict",
+  "dependencyDashboard": true,
   "packageRules": [
     {
-      "description": "Automerge minor/patch after a week",
+      "description": "Automerge minor and patch updates, minimum release age 8 days",
       "matchUpdateTypes": [
         "minor",
         "patch"
@@ -16,7 +18,7 @@
       "minimumReleaseAge": "8 days"
     },
     {
-      "description": "Automerge digests fast — already pinned",
+      "description": "Automerge digest updates, minimum release age 1 day",
       "matchUpdateTypes": [
         "digest"
       ],
@@ -26,7 +28,7 @@
       "minimumReleaseAge": "1 day"
     },
     {
-      "description": "Devdeps are low-risk, merge sooner",
+      "description": "Automerge devDependencies minor and patch, minimum release age 3 days",
       "matchDepTypes": [
         "devDependencies"
       ],
@@ -38,7 +40,7 @@
       "minimumReleaseAge": "3 days"
     },
     {
-      "description": "Majors need a human — assign to me",
+      "description": "Require dashboard approval for major updates, assign for review",
       "matchUpdateTypes": [
         "major"
       ],
