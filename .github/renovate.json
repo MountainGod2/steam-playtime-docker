@@ -2,19 +2,56 @@
   "extends": [
     "config:best-practices"
   ],
+  "platformAutomerge": true,
   "packageRules": [
     {
-      "description": "Automerge non-major updates",
+      "description": "Automerge minor/patch after a week",
       "matchUpdateTypes": [
         "minor",
-        "patch",
+        "patch"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "8 days"
+    },
+    {
+      "description": "Automerge digests fast — already pinned",
+      "matchUpdateTypes": [
         "digest"
       ],
       "automerge": true,
       "automergeType": "pr",
-      "minimumReleaseAge": "8 days"
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "1 day"
+    },
+    {
+      "description": "Devdeps are low-risk, merge sooner",
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true,
+      "minimumReleaseAge": "3 days"
+    },
+    {
+      "description": "Majors need a human — assign to me",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "dependencyDashboardApproval": true,
+      "assignees": [
+        "MountainGod2"
+      ]
     }
   ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
   "pre-commit": {
     "enabled": true
   }
