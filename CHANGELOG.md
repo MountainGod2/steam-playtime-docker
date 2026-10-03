@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v1.4.32 (2026-10-03)
+
+### Bug Fixes
+
+- **deps**: Update dependency uvicorn to v0.54.0
+  ([#268](https://github.com/MountainGod2/steam-playtime-docker/pull/268),
+  [`d603d5b`](https://github.com/MountainGod2/steam-playtime-docker/commit/d603d5ba0cbb05f4a1ba223eab144102107ddca9))
+
+
 ## v1.4.31 (2026-09-23)
 
 ### Bug Fixes
