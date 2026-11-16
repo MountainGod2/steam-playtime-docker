@@ -4,7 +4,9 @@
   ],
   "platformAutomerge": true,
   "internalChecksFilter": "strict",
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "description": "Automerge minor and patch updates, minimum release age 8 days",
